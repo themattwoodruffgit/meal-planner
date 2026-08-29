@@ -109,6 +109,14 @@ branch, root). Personal repo — do NOT push this project to any company remote.
   previous rating for a recipe) and push. The app averages family + own stars, and
   sorts/filters by them — use ratings to steer which recipes to keep, tweak, or add.
 
+- **Publishing the family plan** (recurring task): when Matt sends a Share-plan link
+  and asks to publish it, run
+  `node tools/publish-shared-plan.js "<link>" --push` — it decodes the link into
+  `data/shared-plan.json` and pushes (Pages redeploys). Every device then sees an
+  import banner on load, and the "⬇ Get latest" button pulls it on demand. This is the
+  stopgap for shared state; a real sync backend (Cloudflare Worker + family passcode)
+  is the parked next step if the family outgrows it.
+
 ## Architecture notes
 
 - `js/amounts.js` — amount parsing/aggregation. UMD-style: used by the browser and by the

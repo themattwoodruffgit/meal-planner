@@ -28,7 +28,8 @@
     weeks: {},                            // weekCommencing ISO -> {days: [7 x {b,l,d}], checked: {}}
     swaps: { wholemeal: false, upf: false },
     extras: [],                           // user-added shop items: {name, qty} (shared across weeks)
-    ratings: {}                           // this device's star ratings: recipeId -> 1-5
+    ratings: {},                          // this device's star ratings: recipeId -> 1-5
+    lastSharedImport: null                // published timestamp of the last shared plan seen/imported
   };
 
   // the currently selected week's plan (each week-commencing date keeps its own)
@@ -71,6 +72,7 @@
       s.swaps = s.swaps || { wholemeal: false, upf: false };
       s.extras = s.extras || [];
       s.ratings = s.ratings || {};
+      s.lastSharedImport = s.lastSharedImport || null;
       return s;
     } catch (e) { return null; }
   }
@@ -1012,30 +1014,105 @@
     return location.origin + location.pathname + '#plan=' + b64;
   }
 
+  function validPlanPayload(p) {
+    return p && p.v === 1 && p.wc && Array.isArray(p.days) && p.days.length === 7;
+  }
+
+  function applyImportedPlan(p) {
+    state.weeks[p.wc] = { days: migrateDays(p.days), checked: {} };
+    state.weekCommencing = p.wc;
+    (p.extras || []).forEach(function (x) {
+      if (x && x.name && !state.extras.some(function (e) { return e.name.toLowerCase() === String(x.name).toLowerCase(); })) {
+        state.extras.push({ name: String(x.name), qty: String(x.qty || '') });
+      }
+    });
+    wcInput.value = state.weekCommencing;
+    save();
+    renderPlanner(); renderShopping();
+  }
+
   function tryImportPlanFromHash() {
     var m = location.hash.match(/^#plan=([A-Za-z0-9_-]+)$/);
     if (!m) return;
     try {
       var json = decodeURIComponent(escape(atob(m[1].replace(/-/g, '+').replace(/_/g, '/'))));
       var p = JSON.parse(json);
-      if (p.v !== 1 || !p.wc || !Array.isArray(p.days) || p.days.length !== 7) throw new Error('bad payload');
+      if (!validPlanPayload(p)) throw new Error('bad payload');
       var ok = confirm('Import the shared meal plan for week commencing ' + p.wc + '? This replaces that week\'s plan on this device.');
-      if (ok) {
-        state.weeks[p.wc] = { days: migrateDays(p.days), checked: {} };
-        state.weekCommencing = p.wc;
-        (p.extras || []).forEach(function (x) {
-          if (x && x.name && !state.extras.some(function (e) { return e.name.toLowerCase() === x.name.toLowerCase(); })) {
-            state.extras.push({ name: String(x.name), qty: String(x.qty || '') });
-          }
-        });
-        wcInput.value = state.weekCommencing;
-        save();
-      }
+      if (ok) applyImportedPlan(p);
     } catch (e) {
       alert('Sorry — that plan link could not be read.');
     }
     history.replaceState(null, '', location.pathname);
   }
+
+  /* ---------------- published shared plan ("Get latest") ----------------
+   * The stable channel: data/shared-plan.json on the site itself, written by
+   * tools/publish-shared-plan.js from a Share-plan link. Every device can pull
+   * it from the same bookmarked URL — no per-share links needed.
+   */
+  var bannerEl = document.getElementById('shared-banner');
+
+  function friendlyWhen(iso) {
+    var d = new Date(iso);
+    return isNaN(d) ? iso : d.toLocaleString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+  }
+
+  function checkSharedPlan(manual) {
+    fetch('data/shared-plan.json?ts=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (doc) {
+        if (!doc || !doc.published || !validPlanPayload(doc.plan)) {
+          if (manual) flashButton('get-latest', 'No shared plan yet');
+          return;
+        }
+        if (manual) {
+          if (confirm('Import the family plan published ' + friendlyWhen(doc.published) + ' (week commencing ' + doc.plan.wc + ')? This replaces that week on this device.')) {
+            state.lastSharedImport = doc.published;
+            applyImportedPlan(doc.plan);
+            hideSharedBanner();
+            flashButton('get-latest', '✓ Imported');
+          }
+          return;
+        }
+        if (doc.published === state.lastSharedImport) return;
+        showSharedBanner(doc);
+      })
+      .catch(function () { if (manual) flashButton('get-latest', 'Could not check'); });
+  }
+
+  function showSharedBanner(doc) {
+    bannerEl.innerHTML = '';
+    var text = document.createElement('span');
+    text.textContent = '📌 A family plan for week commencing ' + doc.plan.wc + ' was shared ' + friendlyWhen(doc.published) + '.';
+    bannerEl.appendChild(text);
+
+    var imp = document.createElement('button');
+    imp.className = 'btn btn-primary';
+    imp.textContent = 'Import it';
+    imp.addEventListener('click', function () {
+      state.lastSharedImport = doc.published;
+      applyImportedPlan(doc.plan);
+      hideSharedBanner();
+    });
+    bannerEl.appendChild(imp);
+
+    var dismiss = document.createElement('button');
+    dismiss.className = 'btn';
+    dismiss.textContent = 'Not now';
+    dismiss.addEventListener('click', function () {
+      state.lastSharedImport = doc.published; // seen — stop nagging; ⬇ Get latest can still fetch it
+      save();
+      hideSharedBanner();
+    });
+    bannerEl.appendChild(dismiss);
+
+    bannerEl.classList.remove('hidden');
+  }
+
+  function hideSharedBanner() { bannerEl.classList.add('hidden'); }
+
+  document.getElementById('get-latest').addEventListener('click', function () { checkSharedPlan(true); });
 
   document.getElementById('share-plan').addEventListener('click', function () {
     var url = encodePlanLink();
@@ -1175,6 +1252,7 @@
 
   /* ---------------- init ---------------- */
   tryImportPlanFromHash();
+  checkSharedPlan(false);
   populateCuisines();
   renderPlanner();
   renderRecipes();
