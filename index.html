@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal Planner</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="topbar no-print">
+    <div class="topbar-inner">
+      <h1>🍽️ Meal Planner</h1>
+      <div class="topbar-controls">
+        <label class="week-label">Week commencing
+          <input type="date" id="week-commencing">
+        </label>
+        <button id="print-plan" class="btn">🖨️ Print plan</button>
+        <button id="print-list" class="btn">🖨️ Print shopping list</button>
+        <button id="clear-week" class="btn btn-danger">Clear week</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ======================= WEEK PLANNER ======================= -->
+    <section id="planner-section" class="section">
+      <h2 class="print-only" id="plan-print-title">Meal plan</h2>
+      <p class="hint no-print">Drag a recipe card onto a day, or use a card's <strong>+ Plan</strong> button.</p>
+      <div id="planner" class="planner"></div>
+    </section>
+
+    <!-- ======================= RECIPE LIBRARY ======================= -->
+    <section id="recipes-section" class="section no-print">
+      <div class="section-head">
+        <h2>Recipes <span id="recipe-count" class="count-pill"></span></h2>
+      </div>
+
+      <div class="filters" id="filters">
+        <input type="search" id="f-search" placeholder="Search recipes or ingredients…">
+        <select id="f-cuisine">
+          <option value="">All cuisines</option>
+        </select>
+        <select id="f-time">
+          <option value="">Any time</option>
+          <option value="20">≤ 20 min</option>
+          <option value="30">≤ 30 min</option>
+          <option value="45">≤ 45 min</option>
+          <option value="60">≤ 60 min</option>
+        </select>
+        <select id="f-calories">
+          <option value="">Any calories</option>
+          <option value="400">≤ 400 kcal</option>
+          <option value="500">≤ 500 kcal</option>
+          <option value="600">≤ 600 kcal</option>
+          <option value="800">≤ 800 kcal</option>
+        </select>
+        <select id="f-health">
+          <option value="">Any health rating</option>
+          <option value="A">A only</option>
+          <option value="B">A – B</option>
+          <option value="C">A – C</option>
+          <option value="D">A – D</option>
+        </select>
+        <label class="chk"><input type="checkbox" id="f-gf"> Gluten-free</label>
+        <label class="chk"><input type="checkbox" id="f-df"> Dairy-free</label>
+        <label class="chk"><input type="checkbox" id="f-veg"> Vegetarian</label>
+        <select id="f-sort">
+          <option value="title">Sort: A–Z</option>
+          <option value="calories">Sort: calories</option>
+          <option value="time">Sort: cooking time</option>
+          <option value="health">Sort: healthiest</option>
+        </select>
+        <button id="f-clear" class="btn btn-quiet">Reset</button>
+      </div>
+
+      <div id="recipe-grid" class="recipe-grid"></div>
+    </section>
+
+    <!-- ======================= SHOPPING LIST ======================= -->
+    <section id="shopping-section" class="section">
+      <div class="section-head">
+        <h2 id="shopping-title">Shopping list</h2>
+        <div class="no-print">
+          <button id="copy-list" class="btn btn-quiet">📋 Copy as text</button>
+          <button id="uncheck-all" class="btn btn-quiet">Untick all</button>
+        </div>
+      </div>
+      <div id="shopping-meta" class="shopping-meta"></div>
+      <div id="shopping-list" class="shopping-list"></div>
+      <div id="staples" class="staples"></div>
+    </section>
+
+  </main>
+
+  <!-- ======================= RECIPE MODAL ======================= -->
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- day-picker popover for the "+ Plan" button -->
+  <div id="day-popover" class="day-popover hidden"></div>
+
+  <script src="js/amounts.js"></script>
+  <script src="data/recipes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
