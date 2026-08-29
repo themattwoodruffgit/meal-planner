@@ -81,6 +81,24 @@ For a big batch (e.g. a WhatsApp export dump in ~/Downloads), don't transcribe s
 Live at https://themattwoodruffgit.github.io/meal-planner/ (GitHub Pages, `main`
 branch, root). Personal repo — do NOT push this project to any company remote.
 
+## Beyond Gousto cards
+
+- **Meal types**: recipes carry an optional `mealType: "breakfast" | "lunch" | "dinner" |
+  "bake"` (missing = dinner, so transcribed cards need no field). The planner has three
+  slots per day (B/L/D); a "bake" (e.g. the bread-machine loaf, X-301) can be planned in
+  any slot and is excluded from the nutrition analysis.
+- **Family staples** (X-### ids) are original recipes written in the house style —
+  web research is for typical ingredients/ratios only; never copy another site's text.
+  X-0## dinners, X-1## breakfasts, X-2## lunches, X-3## bakes.
+- **Healthier swaps** (`js/swaps.js`): two shopping-list toggles — wholemeal/brown carb
+  swaps and UPF swap-out suggestions. Rules are name-substring matches; when adding
+  recipes with new carby/processed ingredients, extend the rule tables AND
+  `tests/swaps.test.js` (`node tests/swaps.test.js`).
+- **Week nutrition analysis**: per-person-per-day kcal/protein/carbs (sum of
+  `nutritionPerServing` across the day's planned meals), targets protein ≥ 90g/day and
+  carbs ≤ 200g/day (constants in `js/app.js`), plus distinct-veg count and
+  repeated-recipe flags. Prints with the plan.
+
 ## Architecture notes
 
 - `js/amounts.js` — amount parsing/aggregation. UMD-style: used by the browser and by the

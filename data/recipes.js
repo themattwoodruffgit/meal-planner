@@ -8499,5 +8499,677 @@ window.RECIPES = [
       "Heat a large, wide-based pan (preferably non-stick), over a medium-high heat with a very generous drizzle of vegetable oil. Once hot, add the marinated chicken and cook for 6-7 min on each side until lightly charred and cooked through (no pink meat!) – these are your chicken tikka strips. Tip: Cooking for 4 or more? Use 2 pans!",
       "Serve the chicken tikka strips over the masala fries topped with the diced tomato and cucumber. Drizzle with the remaining natural yoghurt, your mango chutney and the tamarind ketchup. Enjoy!"
     ]
+  },
+  {
+    id: "X-001",
+    title: "Beef, Bean & Pasta One-Pot",
+    source: "Family staple",
+    cuisine: "British",
+    tags: ["Family staple", "3 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 25, max: 30 },
+    fiveADay: 3,
+    nutritionPerServing: {
+      calories: 640, fatG: 22, satFatG: 9, carbsG: 68,
+      sugarG: 12, fibreG: 10, proteinG: 42, saltG: 1.6
+    },
+    allergens: ["gluten (pasta)", "milk (cheddar)"],
+    staples: ["olive oil", "salt", "pepper", "water"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "beef mince",                    category: "meat & fish",    amounts: { "2": "250g",   "3": "375g",    "4": "500g" } },
+      { name: "brown onion",                   category: "produce",        amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "carrot",                        category: "produce",        amounts: { "2": "1",      "3": "2",       "4": "2" } },
+      { name: "garlic clove",                  category: "produce",        amounts: { "2": "2",      "3": "3",       "4": "4" } },
+      { name: "cannellini beans (400g tin)",   category: "pantry",         amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "chopped tomatoes (400g tin)",   category: "pantry",         amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "tomato purée",                  category: "pantry",         amounts: { "2": "1 tbsp", "3": "1.5 tbsp", "4": "2 tbsp" } },
+      { name: "beef stock cube",               category: "pantry",         amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "dried mixed herbs",             category: "herbs & spices", amounts: { "2": "1 tsp",  "3": "1.5 tsp", "4": "2 tsp" } },
+      { name: "smoked paprika",                category: "herbs & spices", amounts: { "2": "1 tsp",  "3": "1.5 tsp", "4": "2 tsp" } },
+      { name: "penne pasta",                   category: "pantry",         amounts: { "2": "180g",   "3": "270g",    "4": "360g" } },
+      { name: "cheddar cheese",                category: "dairy",          amounts: { "2": "40g",    "3": "60g",     "4": "80g" } }
+    ],
+    steps: [
+      "Peel and finely chop your brown onion[s]. Top, tail, peel and coarsely grate your carrot[s]. Peel and finely chop (or grate) your garlic. Boil a kettle.",
+      "Heat a large, wide-based pan (with a matching lid) with a drizzle of olive oil over a high heat. Once hot, add your beef mince and cook for 4-5 min, breaking it up with a wooden spoon, until browned all over.",
+      "Reduce the heat to medium and add the chopped onion and grated carrot. Cook for 3-4 min or until softened, then add the chopped garlic, your smoked paprika, dried mixed herbs and tomato purée and cook for 1 min further or until fragrant.",
+      "Dissolve your beef stock cube in 500ml [700ml] [900ml] boiled water. Add the stock to the pan with your chopped tomatoes and penne pasta and give everything a good mix up.",
+      "Bring to the boil, then reduce the heat to medium-low and cook, covered, for 10-12 min, stirring every few minutes so the pasta doesn't stick, until the pasta is cooked with a slight bite.",
+      "Meanwhile, drain and rinse your cannellini beans. Grate your cheddar cheese.",
+      "Stir the drained beans through the pan and cook for 2-3 min further or until warmed through and the sauce is clinging to the pasta. Season generously with salt and pepper – this is your beef, bean & pasta one-pot.",
+      "Serve the beef, bean & pasta one-pot in bowls topped with the grated cheddar. Enjoy!"
+    ]
+  },
+  {
+    id: "X-002",
+    title: "Spaghetti Bolognese",
+    source: "Family staple",
+    cuisine: "Italian",
+    tags: ["Family staple", "3 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 45, max: 55 },
+    fiveADay: 3,
+    nutritionPerServing: {
+      calories: 620, fatG: 20, satFatG: 8, carbsG: 70,
+      sugarG: 13, fibreG: 8, proteinG: 38, saltG: 1.5
+    },
+    allergens: ["gluten (spaghetti)", "milk (cheese)"],
+    staples: ["olive oil", "salt", "pepper", "water"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "beef mince",                  category: "meat & fish",    amounts: { "2": "250g",   "3": "375g",    "4": "500g" } },
+      { name: "smoked bacon lardons",        category: "meat & fish",    amounts: { "2": "80g",    "3": "120g",    "4": "160g" } },
+      { name: "brown onion",                 category: "produce",        amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "carrot",                      category: "produce",        amounts: { "2": "1",      "3": "2",       "4": "2" } },
+      { name: "celery stick",                category: "produce",        amounts: { "2": "1",      "3": "2",       "4": "2" } },
+      { name: "garlic clove",                category: "produce",        amounts: { "2": "2",      "3": "3",       "4": "4" } },
+      { name: "chopped tomatoes (400g tin)", category: "pantry",         amounts: { "2": "1",      "3": "2",       "4": "2" } },
+      { name: "tomato purée",                category: "pantry",         amounts: { "2": "2 tbsp", "3": "3 tbsp",  "4": "4 tbsp" } },
+      { name: "beef stock cube",             category: "pantry",         amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "dried oregano",               category: "herbs & spices", amounts: { "2": "1 tsp",  "3": "1.5 tsp", "4": "2 tsp" } },
+      { name: "bay leaf",                    category: "herbs & spices", amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "spaghetti",                   category: "pantry",         amounts: { "2": "180g",   "3": "270g",    "4": "360g" } },
+      { name: "hard Italian cheese",         category: "dairy",          amounts: { "2": "30g",    "3": "45g",     "4": "60g" } }
+    ],
+    steps: [
+      "Peel and finely chop your brown onion[s]. Top, tail, peel and finely dice your carrot[s]. Finely dice your celery. Peel and finely chop (or grate) your garlic.",
+      "Heat a large, wide-based pan with a drizzle of olive oil over a medium heat. Once hot, add the chopped onion, carrot and celery and cook for 6-7 min or until soft and sweet, stirring occasionally.",
+      "Increase the heat to high, add your smoked bacon lardons and cook for 2 min, then add your beef mince and cook for 4-5 min, breaking it up with a wooden spoon, until browned all over.",
+      "Add the chopped garlic, your dried oregano and tomato purée and cook for 1 min further or until fragrant. Meanwhile, boil a kettle and dissolve your beef stock cube in 200ml [300ml] [400ml] boiled water.",
+      "Add your chopped tomatoes, the stock and your bay leaf/leaves to the pan. Bring to the boil, then reduce the heat to low and simmer, uncovered, for 25-30 min, stirring now and then, until rich and thickened. Tip: The longer and slower it bubbles, the better it gets – add a splash of water if it thickens too much.",
+      "When the sauce has 10 min to go, add your spaghetti to a pot of boiled water with a large pinch of salt and cook for 8-10 min or until cooked with a slight bite. Once done, drain, reserving a cup of the starchy pasta water.",
+      "Remove the bay leaf/leaves. Season the sauce generously with salt and pepper, then add the drained spaghetti with a splash of the reserved pasta water and toss until every strand is coated – this is your spaghetti bolognese.",
+      "Serve the spaghetti bolognese in bowls, topped with your hard Italian cheese, grated, and a grind of black pepper. Enjoy!"
+    ]
+  },
+  {
+    id: "X-003",
+    title: "Creamy Chicken Masala Curry",
+    source: "Family staple",
+    cuisine: "Indian",
+    tags: ["Family staple", "Gluten-free", "1 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 40, max: 50 },
+    fiveADay: 1,
+    nutritionPerServing: {
+      calories: 650, fatG: 24, satFatG: 12, carbsG: 62,
+      sugarG: 12, fibreG: 4, proteinG: 45, saltG: 0.8
+    },
+    allergens: ["milk (yoghurt, cream)"],
+    staples: ["vegetable oil", "salt", "pepper", "sugar", "water"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "chicken breast",       category: "meat & fish",    amounts: { "2": "300g",    "3": "450g",     "4": "600g" } },
+      { name: "natural yoghurt",      category: "dairy",          amounts: { "2": "100g",    "3": "150g",     "4": "200g" } },
+      { name: "garam masala",         category: "herbs & spices", amounts: { "2": "1 tbsp",  "3": "1.5 tbsp", "4": "2 tbsp" } },
+      { name: "ground cumin",         category: "herbs & spices", amounts: { "2": "1 tsp",   "3": "1.5 tsp",  "4": "2 tsp" } },
+      { name: "ground paprika",       category: "herbs & spices", amounts: { "2": "1 tsp",   "3": "1.5 tsp",  "4": "2 tsp" } },
+      { name: "ground turmeric",      category: "herbs & spices", amounts: { "2": "0.5 tsp", "3": "0.75 tsp", "4": "1 tsp" } },
+      { name: "brown onion",          category: "produce",        amounts: { "2": "1",       "3": "2",        "4": "2" } },
+      { name: "garlic clove",         category: "produce",        amounts: { "2": "3",       "3": "4",        "4": "6" } },
+      { name: "fresh root ginger",    category: "produce",        amounts: { "2": "15g",     "3": "20g",      "4": "30g" } },
+      { name: "tomato passata",       category: "pantry",         amounts: { "2": "250g",    "3": "375g",     "4": "500g" } },
+      { name: "double cream",         category: "dairy",          amounts: { "2": "75ml",    "3": "100ml",    "4": "150ml" } },
+      { name: "white basmati rice",   category: "pantry",         amounts: { "2": "150g",    "3": "225g",     "4": "300g" } },
+      { name: "coriander",            category: "produce",        amounts: { "2": "5g",      "3": "10g",      "4": "10g" } }
+    ],
+    steps: [
+      "Cut your chicken breast[s] into bite-sized pieces and add to a bowl with half your yoghurt, half your garam masala and half your ground paprika (you'll use the rest of each later!) and a pinch of salt. Give everything a good mix up and set aside – this is your marinated chicken.",
+      "Peel and finely chop your brown onion[s]. Peel and finely chop (or grate) your garlic and ginger.",
+      "Add your basmati rice and 300ml [450ml] [600ml] cold water to a pot with a lid and bring to the boil over a high heat. Once boiling, reduce the heat to very low and cook, covered, for 10-12 min or until all the water has absorbed and the rice is cooked. Remove from the heat and keep covered until serving.",
+      "Meanwhile, heat a large, wide-based pan with a drizzle of vegetable oil over a high heat. Once hot, add the marinated chicken and cook for 3-4 min on each side until lightly charred (it will finish cooking in the sauce!). Transfer to a plate.",
+      "Return the pan to a medium heat with a drizzle more oil. Add the chopped onion and cook for 4-5 min or until softened, then add the chopped garlic and ginger, your ground cumin, ground turmeric and the remaining garam masala and paprika and cook for 1 min or until fragrant.",
+      "Add your tomato passata with a pinch of sugar and 100ml [150ml] [200ml] cold water. Bring to a simmer and cook for 5 min, then return the chicken to the pan and cook for 5-6 min further or until the chicken is cooked through (no pink meat!).",
+      "Remove from the heat and stir through your double cream and the remaining yoghurt – this is your creamy chicken masala curry. Roughly chop your coriander, including the stalks.",
+      "Serve the creamy chicken masala curry with the basmati rice to the side, garnished with the chopped coriander. Enjoy!"
+    ]
+  },
+  {
+    id: "X-004",
+    title: "Lamb Biryani",
+    source: "Family staple",
+    cuisine: "Indian",
+    tags: ["Family staple", "Gluten-free", "1 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 55, max: 65 },
+    fiveADay: 1,
+    nutritionPerServing: {
+      calories: 690, fatG: 24, satFatG: 10, carbsG: 75,
+      sugarG: 10, fibreG: 4, proteinG: 40, saltG: 0.7
+    },
+    allergens: ["milk (yoghurt)"],
+    staples: ["vegetable oil", "salt", "pepper", "water"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "diced lamb leg",       category: "meat & fish",    amounts: { "2": "300g",    "3": "450g",     "4": "600g" } },
+      { name: "natural yoghurt",      category: "dairy",          amounts: { "2": "100g",    "3": "150g",     "4": "200g" } },
+      { name: "brown onion",          category: "produce",        amounts: { "2": "2",       "3": "3",        "4": "4" } },
+      { name: "garlic clove",         category: "produce",        amounts: { "2": "3",       "3": "4",        "4": "6" } },
+      { name: "fresh root ginger",    category: "produce",        amounts: { "2": "15g",     "3": "20g",      "4": "30g" } },
+      { name: "garam masala",         category: "herbs & spices", amounts: { "2": "1 tbsp",  "3": "1.5 tbsp", "4": "2 tbsp" } },
+      { name: "ground cumin",         category: "herbs & spices", amounts: { "2": "1 tsp",   "3": "1.5 tsp",  "4": "2 tsp" } },
+      { name: "ground turmeric",      category: "herbs & spices", amounts: { "2": "0.5 tsp", "3": "0.75 tsp", "4": "1 tsp" } },
+      { name: "cardamom pod",         category: "herbs & spices", amounts: { "2": "4",       "3": "6",        "4": "8" } },
+      { name: "cinnamon stick",       category: "herbs & spices", amounts: { "2": "1",       "3": "1",        "4": "2" } },
+      { name: "white basmati rice",   category: "pantry",         amounts: { "2": "150g",    "3": "225g",     "4": "300g" } },
+      { name: "coriander",            category: "produce",        amounts: { "2": "10g",     "3": "10g",      "4": "20g" } },
+      { name: "mint",                 category: "produce",        amounts: { "2": "5g",      "3": "5g",       "4": "10g" } },
+      { name: "lemon",                category: "produce",        amounts: { "2": "1",       "3": "1",        "4": "1" } }
+    ],
+    steps: [
+      "Add your diced lamb to a bowl with your yoghurt, half your garam masala, your ground cumin and half your ground turmeric (you'll use the rest later!) and a generous pinch of salt. Mix well and set aside to marinate while you prep – this is your marinated lamb. Rinse your basmati rice in a sieve until the water runs clear, then leave it to soak in cold water.",
+      "Peel and finely slice your brown onions. Peel and finely chop (or grate) your garlic and ginger. Crush your cardamom pods open with the side of a knife.",
+      "Heat a large, wide-based pan (with a matching lid) with a very generous drizzle of vegetable oil over a medium-high heat. Once hot, add the sliced onion and cook for 10-12 min, stirring often, until deep golden and starting to crisp. Transfer half to kitchen paper (these are your crispy onions – save them for serving!), leaving the rest in the pan.",
+      "Add the chopped garlic and ginger to the pan and cook for 1 min, then add the marinated lamb and cook for 4-5 min or until browned all over. Add 150ml [200ml] [250ml] cold water, reduce the heat to low and simmer, covered, for 25-30 min or until the lamb is tender.",
+      "Meanwhile, boil a kettle. Drain the soaked rice and add it to a pot of boiled water with a generous pinch of salt, the crushed cardamom pods, your cinnamon stick[s] and the remaining ground turmeric. Boil for 5 min (the rice should still have a good bite – it finishes cooking with the lamb), then drain.",
+      "Roughly chop your coriander (stalks and all) and your mint leaves. Cut your lemon[s] into wedges.",
+      "Layer the part-cooked rice over the tender lamb, scatter over half the chopped herbs, then cover with the lid and cook over a very low heat for 12-15 min or until the rice is cooked through and fragrant. Remove from the heat and rest, covered, for 5 min – this is your lamb biryani.",
+      "Gently fold the biryani together and discard the cinnamon. Serve topped with the crispy onions, the remaining herbs and a lemon wedge to the side. Enjoy!"
+    ]
+  },
+  {
+    id: "X-005",
+    title: "Pasta Carbonara",
+    source: "Family staple",
+    cuisine: "Italian",
+    tags: ["Family staple"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 15, max: 20 },
+    fiveADay: 0,
+    nutritionPerServing: {
+      calories: 720, fatG: 32, satFatG: 13, carbsG: 68,
+      sugarG: 3, fibreG: 4, proteinG: 36, saltG: 1.9
+    },
+    allergens: ["gluten (pasta)", "egg", "milk (cheese)"],
+    staples: ["salt", "pepper", "water"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "spaghetti",             category: "pantry",      amounts: { "2": "180g", "3": "270g", "4": "360g" } },
+      { name: "smoked bacon lardons",  category: "meat & fish", amounts: { "2": "150g", "3": "225g", "4": "300g" } },
+      { name: "egg",                   category: "dairy",       amounts: { "2": "3",    "3": "4",    "4": "6" } },
+      { name: "pecorino romano",       category: "dairy",       amounts: { "2": "50g",  "3": "75g",  "4": "100g" } }
+    ],
+    steps: [
+      "Boil a full kettle. Finely grate your pecorino romano.",
+      "Crack your eggs into a bowl, add most of the grated pecorino (save a handful for serving!) and a very generous grind of black pepper, and beat with a fork until completely combined – this is your carbonara mix.",
+      "Add your spaghetti to a pot of boiled water with a pinch of salt and cook for 8-10 min or until cooked with a slight bite. Once done, drain, reserving a full cup of the starchy pasta water.",
+      "Meanwhile, add your smoked bacon lardons to a large, cold, wide-based pan and place over a medium heat. Cook for 6-8 min, stirring occasionally, until deeply golden and crisp, then remove the pan from the heat. Tip: Starting in a cold pan renders the fat slowly – no oil needed!",
+      "Working quickly, add the drained spaghetti to the pan of lardons (off the heat!) with a splash of the reserved pasta water and toss well. Pour over the carbonara mix and keep tossing for 1-2 min – the residual heat will turn the egg and cheese into a glossy sauce that coats every strand. Add more pasta water, a splash at a time, until silky. Tip: If the pan is too hot the egg will scramble – off the heat is the way!",
+      "Serve the pasta carbonara immediately, topped with the reserved pecorino and plenty more black pepper. Enjoy!"
+    ]
+  },
+  {
+    id: "X-006",
+    title: "Harissa Sausage Pasta With Spinach & Tomato",
+    source: "Family staple",
+    cuisine: "Mediterranean",
+    tags: ["Family staple", "3 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 25, max: 30 },
+    fiveADay: 3,
+    nutritionPerServing: {
+      calories: 780, fatG: 38, satFatG: 15, carbsG: 72,
+      sugarG: 12, fibreG: 7, proteinG: 32, saltG: 2
+    },
+    allergens: ["gluten (pasta)", "milk (crème fraîche, cheese)", "sulphites (sausages – check label)"],
+    staples: ["olive oil", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "pork sausages",               category: "meat & fish", amounts: { "2": "4",      "3": "6",       "4": "8" } },
+      { name: "harissa paste",               category: "pantry",      amounts: { "2": "2 tbsp", "3": "3 tbsp",  "4": "4 tbsp" } },
+      { name: "brown onion",                 category: "produce",     amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "garlic clove",                category: "produce",     amounts: { "2": "2",      "3": "3",       "4": "4" } },
+      { name: "cherry tomatoes",             category: "produce",     amounts: { "2": "200g",   "3": "300g",    "4": "400g" } },
+      { name: "chopped tomatoes (400g tin)", category: "pantry",      amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "spinach",                     category: "produce",     amounts: { "2": "120g",   "3": "180g",    "4": "240g" } },
+      { name: "rigatoni",                    category: "pantry",      amounts: { "2": "180g",   "3": "270g",    "4": "360g" } },
+      { name: "crème fraîche",               category: "dairy",       amounts: { "2": "75g",    "3": "100g",    "4": "150g" } },
+      { name: "hard Italian cheese",         category: "dairy",       amounts: { "2": "30g",    "3": "45g",     "4": "60g" } }
+    ],
+    steps: [
+      "Boil a full kettle. Peel and finely chop your brown onion[s]. Peel and finely chop (or grate) your garlic. Chop your cherry tomatoes in half.",
+      "Squeeze your sausages out of their skins directly into a large, wide-based pan (discard the skins) and place over a medium-high heat with a small drizzle of olive oil. Cook for 5-6 min, breaking the sausagemeat into rough chunks with a wooden spoon, until golden and starting to crisp.",
+      "Meanwhile, add your rigatoni to a pot of boiled water with a large pinch of salt and cook for 10-12 min or until cooked with a slight bite. Once done, drain, reserving a cup of the starchy pasta water.",
+      "Add the chopped onion to the sausage pan and cook for 3-4 min or until softened, then add the chopped garlic and your harissa paste and cook for 1 min further or until fragrant. Tip: Can't handle the heat? Start with half the harissa and build it up!",
+      "Add the halved cherry tomatoes and your chopped tomatoes and simmer for 5-6 min or until the sauce has thickened and the cherry tomatoes are starting to collapse.",
+      "Wash your spinach, then add it to the pan a handful at a time, stirring until wilted. Remove from the heat and stir through your crème fraîche.",
+      "Add the drained rigatoni with a splash of the reserved pasta water and toss until everything is coated in the terracotta-coloured sauce. Season with salt and pepper – this is your harissa sausage pasta.",
+      "Serve the harissa sausage pasta in bowls with your hard Italian cheese grated over the top. Enjoy!"
+    ]
+  },
+  {
+    id: "X-007",
+    title: "Fish Fingers, Jacket Potatoes & Salad",
+    source: "Family staple",
+    cuisine: "British",
+    tags: ["Family staple", "2 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 60, max: 70 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 520, fatG: 18, satFatG: 6, carbsG: 68,
+      sugarG: 8, fibreG: 8, proteinG: 22, saltG: 1.2
+    },
+    allergens: ["gluten (fish finger crumb)", "fish", "milk (butter)"],
+    staples: ["butter", "olive oil", "vinegar", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "fish fingers",     category: "frozen",  amounts: { "2": "8",    "3": "12",   "4": "16" } },
+      { name: "baking potato",    category: "produce", amounts: { "2": "2",    "3": "3",    "4": "4" } },
+      { name: "gem lettuce",      category: "produce", amounts: { "2": "1",    "3": "2",    "4": "2" } },
+      { name: "cucumber",         category: "produce", amounts: { "2": "½",    "3": "¾",    "4": "1" } },
+      { name: "cherry tomatoes",  category: "produce", amounts: { "2": "150g", "3": "200g", "4": "300g" } },
+      { name: "lemon",            category: "produce", amounts: { "2": "1",    "3": "1",    "4": "1" } }
+    ],
+    steps: [
+      "Preheat the oven to 200°C/ 180°C (fan)/ gas 6. Scrub your baking potatoes, pat dry, and prick each a few times with a fork. Rub with a little olive oil and a generous pinch of salt.",
+      "Put the potatoes straight on the middle oven shelf and bake for 60-70 min or until the skins are crisp and a knife slides through the middle with no resistance. Tip: Short on time? Microwave the pricked potatoes for 8-10 min first, then finish in the oven for 20-25 min to crisp the skins.",
+      "When the potatoes have 15 min to go, add your fish fingers to a baking tray and cook on the top shelf for 12-15 min, turning halfway, until golden and crisp all over.",
+      "Meanwhile, wash your gem lettuce, pat it dry with kitchen paper and roughly shred. Slice your cucumber into half-moons. Chop your cherry tomatoes in half.",
+      "Add the shredded lettuce, cucumber and tomatoes to a large bowl. Just before serving, dress with a good drizzle of olive oil, a small splash of vinegar and a pinch of salt and pepper and toss well – this is your salad. Cut your lemon[s] into 1 wedge per person.",
+      "Split the jacket potatoes open, season, and add a generous knob of butter to each.",
+      "Serve the fish fingers with a jacket potato and a big handful of salad to the side, with a lemon wedge for squeezing over the fish. Enjoy!"
+    ]
+  },
+  {
+    id: "X-101",
+    title: "Granola, Greek Yoghurt & Berry Bowl",
+    source: "Family staple",
+    mealType: "breakfast",
+    cuisine: "British",
+    tags: ["Family staple", "1 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 5, max: 5 },
+    fiveADay: 1,
+    nutritionPerServing: {
+      calories: 420, fatG: 14, satFatG: 5, carbsG: 48,
+      sugarG: 18, fibreG: 6, proteinG: 22, saltG: 0.2
+    },
+    allergens: ["gluten (granola – check label)", "milk (yoghurt)", "nuts (granola/seeds – check label)"],
+    staples: ["honey"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "granola",            category: "pantry",  amounts: { "2": "100g", "3": "150g", "4": "200g" } },
+      { name: "Greek yoghurt",      category: "dairy",   amounts: { "2": "300g", "3": "450g", "4": "600g" } },
+      { name: "mixed berries",      category: "produce", amounts: { "2": "160g", "3": "240g", "4": "320g" } },
+      { name: "pumpkin seeds",      category: "pantry",  amounts: { "2": "20g",  "3": "30g",  "4": "40g" } }
+    ],
+    steps: [
+      "Divide your Greek yoghurt between bowls.",
+      "Top with your granola, then scatter over your mixed berries and pumpkin seeds.",
+      "Finish with a small drizzle of honey. Enjoy!"
+    ]
+  },
+  {
+    id: "X-102",
+    title: "Shredded Wheat Minis With Banana & Blueberries",
+    source: "Family staple",
+    mealType: "breakfast",
+    cuisine: "British",
+    tags: ["Family staple", "1 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 5, max: 5 },
+    fiveADay: 1,
+    nutritionPerServing: {
+      calories: 350, fatG: 6, satFatG: 3, carbsG: 60,
+      sugarG: 20, fibreG: 7, proteinG: 14, saltG: 0.2
+    },
+    allergens: ["gluten (wheat)", "milk"],
+    staples: [],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "shredded wheat minis", category: "pantry",  amounts: { "2": "90g",   "3": "135g",  "4": "180g" } },
+      { name: "semi-skimmed milk",    category: "dairy",   amounts: { "2": "400ml", "3": "600ml", "4": "800ml" } },
+      { name: "banana",               category: "produce", amounts: { "2": "1",     "3": "2",     "4": "2" } },
+      { name: "blueberries",          category: "produce", amounts: { "2": "80g",   "3": "120g",  "4": "160g" } },
+      { name: "ground cinnamon",      category: "herbs & spices", amounts: { "2": "0.5 tsp", "3": "0.75 tsp", "4": "1 tsp" } }
+    ],
+    steps: [
+      "Divide your shredded wheat minis between bowls.",
+      "Slice your banana[s] and arrange over the top with your blueberries.",
+      "Pour over your milk and finish with a dusting of ground cinnamon. Enjoy!"
+    ]
+  },
+  {
+    id: "X-103",
+    title: "Apple & Cinnamon Overnight Oats",
+    source: "Family staple",
+    mealType: "breakfast",
+    cuisine: "British",
+    tags: ["Family staple", "1 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 5, max: 10 },
+    fiveADay: 1,
+    nutritionPerServing: {
+      calories: 390, fatG: 10, satFatG: 4, carbsG: 55,
+      sugarG: 19, fibreG: 7, proteinG: 18, saltG: 0.2
+    },
+    allergens: ["gluten (oats – check label)", "milk"],
+    staples: ["honey"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "porridge oats",     category: "pantry",         amounts: { "2": "100g",    "3": "150g",     "4": "200g" } },
+      { name: "natural yoghurt",   category: "dairy",          amounts: { "2": "150g",    "3": "225g",     "4": "300g" } },
+      { name: "semi-skimmed milk", category: "dairy",          amounts: { "2": "200ml",   "3": "300ml",    "4": "400ml" } },
+      { name: "apple",             category: "produce",        amounts: { "2": "1",       "3": "2",        "4": "2" } },
+      { name: "ground cinnamon",   category: "herbs & spices", amounts: { "2": "0.5 tsp", "3": "0.75 tsp", "4": "1 tsp" } },
+      { name: "sultanas",          category: "pantry",         amounts: { "2": "30g",     "3": "45g",      "4": "60g" } }
+    ],
+    steps: [
+      "The night before: add your oats, yoghurt and milk to a container (or one jar per person) and mix well.",
+      "Coarsely grate your apple[s] (skin on) straight in, add your ground cinnamon and sultanas, and stir through with a small drizzle of honey.",
+      "Cover and refrigerate overnight (or at least 2 hours).",
+      "In the morning, give it a good stir and loosen with a splash more milk if you like it softer. Enjoy!"
+    ]
+  },
+  {
+    id: "X-104",
+    title: "Eggs On Toast With Roasted Tomatoes",
+    source: "Family staple",
+    mealType: "breakfast",
+    cuisine: "British",
+    tags: ["Family staple", "1 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 15, max: 20 },
+    fiveADay: 1,
+    nutritionPerServing: {
+      calories: 380, fatG: 18, satFatG: 6, carbsG: 32,
+      sugarG: 6, fibreG: 6, proteinG: 21, saltG: 1
+    },
+    allergens: ["gluten (bread)", "egg", "milk (butter)"],
+    staples: ["butter", "olive oil", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "egg",              category: "dairy",   amounts: { "2": "4",    "3": "6",    "4": "8" } },
+      { name: "wholemeal bread",  category: "bakery",  amounts: { "2": "4 slices", "3": "6 slices", "4": "8 slices" } },
+      { name: "cherry tomatoes",  category: "produce", amounts: { "2": "150g", "3": "225g", "4": "300g" } }
+    ],
+    steps: [
+      "Preheat the grill to high. Chop your cherry tomatoes in half, add to a small tray, drizzle with olive oil, season with salt and pepper and grill for 6-8 min or until soft and starting to catch. Tip: Using slices from your bread machine loaf? Even better.",
+      "Meanwhile, bring a pot of water to a gentle simmer for poached eggs (or heat a knob of butter in a pan for scrambled – dealer's choice!).",
+      "Crack in your eggs and poach for 3-4 min for a runny yolk (or scramble gently until just set).",
+      "Toast your wholemeal bread and butter it. Top with the eggs, pile the roasted tomatoes alongside and season with a grind of black pepper. Enjoy!"
+    ]
+  },
+  {
+    id: "X-105",
+    title: "Greek Yoghurt Protein Pot With Nuts & Seeds",
+    source: "Family staple",
+    mealType: "breakfast",
+    cuisine: "British",
+    tags: ["Family staple", "Gluten-free", "1 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 5, max: 5 },
+    fiveADay: 1,
+    nutritionPerServing: {
+      calories: 400, fatG: 22, satFatG: 6, carbsG: 24,
+      sugarG: 16, fibreG: 5, proteinG: 26, saltG: 0.2
+    },
+    allergens: ["milk (yoghurt)", "nuts"],
+    staples: ["honey"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "Greek yoghurt", category: "dairy",   amounts: { "2": "400g", "3": "600g", "4": "800g" } },
+      { name: "mixed nuts",    category: "pantry",  amounts: { "2": "40g",  "3": "60g",  "4": "80g" } },
+      { name: "pumpkin seeds", category: "pantry",  amounts: { "2": "20g",  "3": "30g",  "4": "40g" } },
+      { name: "mixed berries", category: "produce", amounts: { "2": "120g", "3": "180g", "4": "240g" } }
+    ],
+    steps: [
+      "Divide your Greek yoghurt between bowls or lidded pots (this one travels well!).",
+      "Roughly chop your mixed nuts and scatter over with your pumpkin seeds.",
+      "Top with your mixed berries and the smallest drizzle of honey. Enjoy!"
+    ]
+  },
+  {
+    id: "X-201",
+    title: "Chicken, Avocado & Quinoa Lunchbox Salad",
+    source: "Family staple",
+    mealType: "lunch",
+    cuisine: "Mediterranean",
+    tags: ["Family staple", "Gluten-free", "3 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: true, vegetarian: false, vegan: false },
+    timeMinutes: { min: 20, max: 25 },
+    fiveADay: 3,
+    nutritionPerServing: {
+      calories: 520, fatG: 24, satFatG: 4, carbsG: 34,
+      sugarG: 5, fibreG: 9, proteinG: 42, saltG: 0.4
+    },
+    allergens: [],
+    staples: ["olive oil", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "chicken breast",   category: "meat & fish", amounts: { "2": "300g", "3": "450g", "4": "600g" } },
+      { name: "quinoa",           category: "pantry",      amounts: { "2": "120g", "3": "180g", "4": "240g" } },
+      { name: "avocado",          category: "produce",     amounts: { "2": "1",    "3": "2",    "4": "2" } },
+      { name: "cucumber",         category: "produce",     amounts: { "2": "½",    "3": "¾",    "4": "1" } },
+      { name: "cherry tomatoes",  category: "produce",     amounts: { "2": "150g", "3": "225g", "4": "300g" } },
+      { name: "baby leaf salad",  category: "produce",     amounts: { "2": "60g",  "3": "90g",  "4": "120g" } },
+      { name: "lemon",            category: "produce",     amounts: { "2": "1",    "3": "1",    "4": "1" } }
+    ],
+    steps: [
+      "Rinse your quinoa in a sieve, then add to a pot with double its volume of cold water and a pinch of salt. Bring to the boil, reduce to a simmer and cook, covered, for 12-15 min or until the water has absorbed and the grains are tender. Spread on a plate to cool.",
+      "Meanwhile, butterfly your chicken breast[s] (slice horizontally, almost all the way through, and open like a book). Season with salt and pepper and a drizzle of olive oil.",
+      "Heat a large, wide-based pan over a medium-high heat. Once hot, cook the chicken for 4-5 min on each side or until charred and cooked through (no pink meat!). Rest for a few minutes, then slice.",
+      "Chop your cucumber into half-moons and your cherry tomatoes in half. Halve, de-stone and slice your avocado[s], squeezing over a little lemon juice to keep them green.",
+      "Build the lunchboxes: cooled quinoa on the bottom, then baby leaves, cucumber, tomatoes, avocado and the sliced chicken on top. Dress with olive oil, the juice of the remaining lemon, salt and pepper just before eating (or pack the dressing in a little pot). Keeps in the fridge until lunchtime. Enjoy!"
+    ]
+  },
+  {
+    id: "X-202",
+    title: "Tuna & White Bean Lunchbox Salad",
+    source: "Family staple",
+    mealType: "lunch",
+    cuisine: "Mediterranean",
+    tags: ["Family staple", "Gluten-free", "Dairy-free", "2 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: true, vegetarian: false, vegan: false },
+    timeMinutes: { min: 10, max: 15 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 420, fatG: 14, satFatG: 2, carbsG: 30,
+      sugarG: 6, fibreG: 10, proteinG: 40, saltG: 0.9
+    },
+    allergens: ["fish (tuna)"],
+    staples: ["olive oil", "vinegar", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "tuna (145g tin)",             category: "pantry",  amounts: { "2": "2",    "3": "3",    "4": "4" } },
+      { name: "cannellini beans (400g tin)", category: "pantry",  amounts: { "2": "1",    "3": "1",    "4": "2" } },
+      { name: "red onion",                   category: "produce", amounts: { "2": "½",    "3": "¾",    "4": "1" } },
+      { name: "cherry tomatoes",             category: "produce", amounts: { "2": "150g", "3": "225g", "4": "300g" } },
+      { name: "parsley",                     category: "produce", amounts: { "2": "10g",  "3": "10g",  "4": "20g" } },
+      { name: "lemon",                       category: "produce", amounts: { "2": "1",    "3": "1",    "4": "1" } },
+      { name: "pitted olives",               category: "pantry",  amounts: { "2": "50g",  "3": "75g",  "4": "100g" } }
+    ],
+    steps: [
+      "Drain and rinse your cannellini beans. Drain your tuna.",
+      "Peel and very finely slice your red onion. Chop your cherry tomatoes in half. Roughly chop your parsley, stalks and all. Halve your olives.",
+      "Add the beans, tuna, onion, tomatoes, olives and most of the parsley to a large bowl. Dress with a generous glug of olive oil, the juice of your lemon[s], a small splash of vinegar and plenty of black pepper, then toss gently so the tuna stays in chunks.",
+      "Pack into lunchboxes and scatter with the remaining parsley. It genuinely improves as it sits – the beans soak up the dressing by lunchtime. Enjoy!"
+    ]
+  },
+  {
+    id: "X-203",
+    title: "Halloumi, Chickpea & Roast Pepper Salad",
+    source: "Family staple",
+    mealType: "lunch",
+    cuisine: "Mediterranean",
+    tags: ["Family staple", "Gluten-free", "Vegetarian", "3 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 15, max: 20 },
+    fiveADay: 3,
+    nutritionPerServing: {
+      calories: 540, fatG: 30, satFatG: 14, carbsG: 36,
+      sugarG: 9, fibreG: 10, proteinG: 28, saltG: 2.1
+    },
+    allergens: ["milk (halloumi)"],
+    staples: ["olive oil", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "halloumi",               category: "dairy",          amounts: { "2": "225g", "3": "1½ x 225g", "4": "2 x 225g" } },
+      { name: "chickpeas (400g tin)",   category: "pantry",         amounts: { "2": "1",    "3": "1",         "4": "2" } },
+      { name: "red pepper",             category: "produce",        amounts: { "2": "1",    "3": "2",         "4": "2" } },
+      { name: "spinach",                category: "produce",        amounts: { "2": "80g",  "3": "120g",      "4": "160g" } },
+      { name: "cucumber",               category: "produce",        amounts: { "2": "½",    "3": "¾",         "4": "1" } },
+      { name: "dried oregano",          category: "herbs & spices", amounts: { "2": "1 tsp", "3": "1.5 tsp",  "4": "2 tsp" } },
+      { name: "lemon",                  category: "produce",        amounts: { "2": "1",    "3": "1",         "4": "1" } }
+    ],
+    steps: [
+      "Deseed your red pepper[s] and cut into strips. Heat a large, wide-based pan (preferably non-stick) with a drizzle of olive oil over a high heat and cook the pepper strips for 4-5 min or until softened and charring at the edges. Transfer to a large bowl.",
+      "Drain and rinse your chickpeas, then add them to the empty pan with your dried oregano and a drizzle of olive oil. Cook for 3-4 min or until slightly crisped, then add to the bowl.",
+      "Slice your halloumi into 1cm slabs, pat dry, and cook in the same pan for 1-2 min on each side or until deep golden. Tip: No oil needed – halloumi looks after itself.",
+      "Chop your cucumber into half-moons. Add the cucumber and your spinach to the bowl, squeeze over the juice of your lemon[s], season with pepper (the halloumi brings the salt!) and toss.",
+      "Top with the golden halloumi. If packing for later, keep the halloumi separate and add it at lunchtime so it stays bouncy, not squeaky. Enjoy!"
+    ]
+  },
+  {
+    id: "X-204",
+    title: "Egg, Lentil & Beetroot Salad",
+    source: "Family staple",
+    mealType: "lunch",
+    cuisine: "British",
+    tags: ["Family staple", "Gluten-free", "Vegetarian", "2 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 15, max: 15 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 430, fatG: 20, satFatG: 7, carbsG: 30,
+      sugarG: 10, fibreG: 9, proteinG: 30, saltG: 1.1
+    },
+    allergens: ["egg", "milk (feta)"],
+    staples: ["olive oil", "vinegar", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "egg",                        category: "dairy",   amounts: { "2": "4",    "3": "6",    "4": "8" } },
+      { name: "cooked puy lentils (250g pouch)", category: "pantry", amounts: { "2": "1", "3": "1½",  "4": "2" } },
+      { name: "cooked beetroot",            category: "produce", amounts: { "2": "150g", "3": "225g", "4": "300g" } },
+      { name: "spinach",                    category: "produce", amounts: { "2": "80g",  "3": "120g", "4": "160g" } },
+      { name: "feta",                       category: "dairy",   amounts: { "2": "60g",  "3": "90g",  "4": "120g" } }
+    ],
+    steps: [
+      "Bring a pot of water to the boil. Gently lower in your eggs and cook for 7 min (jammy) or 9 min (hard-boiled for lunchboxes), then run under cold water and peel.",
+      "Meanwhile, warm your lentils per the pouch (or use straight from the pouch – they're already cooked). Chop your cooked beetroot into bite-sized wedges.",
+      "Add the lentils, beetroot and your spinach to a large bowl. Dress with olive oil, a splash of vinegar, salt and pepper and toss well.",
+      "Quarter the boiled eggs and arrange on top, then crumble over your feta with a final grind of pepper. Packs beautifully – keep the eggs whole until lunchtime if travelling. Enjoy!"
+    ]
+  },
+  {
+    id: "X-205",
+    title: "Smoked Mackerel, New Potato & Spinach Salad",
+    source: "Family staple",
+    mealType: "lunch",
+    cuisine: "British",
+    tags: ["Family staple", "Gluten-free", "2 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 20, max: 25 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 520, fatG: 32, satFatG: 7, carbsG: 32,
+      sugarG: 5, fibreG: 5, proteinG: 26, saltG: 1.8
+    },
+    allergens: ["fish (mackerel)", "milk (yoghurt)", "mustard"],
+    staples: ["olive oil", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "smoked mackerel fillets", category: "meat & fish",    amounts: { "2": "150g",  "3": "225g",    "4": "300g" } },
+      { name: "new potatoes",            category: "produce",        amounts: { "2": "300g",  "3": "450g",    "4": "600g" } },
+      { name: "spinach",                 category: "produce",        amounts: { "2": "80g",   "3": "120g",    "4": "160g" } },
+      { name: "radishes",                category: "produce",        amounts: { "2": "100g",  "3": "150g",    "4": "200g" } },
+      { name: "natural yoghurt",         category: "dairy",          amounts: { "2": "75g",   "3": "100g",    "4": "150g" } },
+      { name: "wholegrain mustard",      category: "pantry",         amounts: { "2": "1 tsp", "3": "1.5 tsp", "4": "2 tsp" } },
+      { name: "lemon",                   category: "produce",        amounts: { "2": "1",     "3": "1",       "4": "1" } }
+    ],
+    steps: [
+      "Halve your new potatoes (quarter any big ones) and add to a pot of cold, salted water. Bring to the boil and cook for 12-15 min or until a knife slides through easily, then drain and let them steam-dry.",
+      "Meanwhile, mix your natural yoghurt, wholegrain mustard, half the juice of your lemon[s] and a grind of pepper in a small bowl – this is your mustard dressing.",
+      "Finely slice your radishes. Peel the skin off your smoked mackerel fillets and flake the fish into big pieces, checking for bones.",
+      "Toss the warm potatoes with the radishes, your spinach and half the mustard dressing (warm potatoes drink up dressing – exactly what you want).",
+      "Top with the flaked mackerel, drizzle over the remaining dressing and finish with the rest of the lemon, squeezed over. Works warm now or cold from a lunchbox tomorrow. Enjoy!"
+    ]
+  },
+  {
+    id: "X-206",
+    title: "Greek-Style Chicken & Feta Salad",
+    source: "Family staple",
+    mealType: "lunch",
+    cuisine: "Greek",
+    tags: ["Family staple", "Gluten-free", "3 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 15, max: 20 },
+    fiveADay: 3,
+    nutritionPerServing: {
+      calories: 470, fatG: 26, satFatG: 8, carbsG: 12,
+      sugarG: 9, fibreG: 5, proteinG: 44, saltG: 1.5
+    },
+    allergens: ["milk (feta)"],
+    staples: ["olive oil", "vinegar", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "chicken breast",  category: "meat & fish",    amounts: { "2": "300g",  "3": "450g",    "4": "600g" } },
+      { name: "feta",            category: "dairy",          amounts: { "2": "100g",  "3": "150g",    "4": "200g" } },
+      { name: "gem lettuce",     category: "produce",        amounts: { "2": "1",     "3": "2",       "4": "2" } },
+      { name: "cucumber",        category: "produce",        amounts: { "2": "½",     "3": "¾",       "4": "1" } },
+      { name: "cherry tomatoes", category: "produce",        amounts: { "2": "150g",  "3": "225g",    "4": "300g" } },
+      { name: "red onion",       category: "produce",        amounts: { "2": "½",     "3": "¾",       "4": "1" } },
+      { name: "pitted olives",   category: "pantry",         amounts: { "2": "50g",   "3": "75g",     "4": "100g" } },
+      { name: "dried oregano",   category: "herbs & spices", amounts: { "2": "1 tsp", "3": "1.5 tsp", "4": "2 tsp" } }
+    ],
+    steps: [
+      "Butterfly your chicken breast[s], rub with olive oil, half your dried oregano and a pinch of salt and pepper.",
+      "Heat a large, wide-based pan over a medium-high heat and cook the chicken for 4-5 min on each side or until charred and cooked through (no pink meat!). Rest, then slice.",
+      "Meanwhile, wash and roughly chop your gem lettuce. Chop your cucumber into chunky half-moons and your cherry tomatoes in half. Peel and very finely slice your red onion. Halve your olives.",
+      "Add everything to a large bowl, dress with a generous glug of olive oil, a splash of vinegar, the remaining oregano and a grind of pepper, and toss.",
+      "Top with the sliced chicken and crumble over your feta. For lunchboxes: dressing in the bottom, sturdy veg next, leaves and chicken on top – shake at lunchtime. Enjoy!"
+    ]
+  },
+  {
+    id: "X-301",
+    title: "Bread Machine Wholemeal Loaf",
+    source: "Family staple",
+    mealType: "bake",
+    cuisine: "British",
+    tags: ["Family staple", "Wholemeal", "No UPF"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 5, max: 10 },
+    fiveADay: 0,
+    nutritionPerServing: {
+      calories: 220, fatG: 4, satFatG: 2, carbsG: 38,
+      sugarG: 2, fibreG: 6, proteinG: 9, saltG: 0.6
+    },
+    allergens: ["gluten (wheat flour)", "milk (butter)"],
+    staples: ["butter", "salt", "water"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "strong wholemeal bread flour", category: "pantry", amounts: { "2": "500g",  "3": "500g",  "4": "500g" } },
+      { name: "fast-action dried yeast (7g)", category: "pantry", amounts: { "2": "1",     "3": "1",     "4": "1" } },
+      { name: "honey",                        category: "pantry", amounts: { "2": "1 tbsp", "3": "1 tbsp", "4": "1 tbsp" } },
+      { name: "mixed seeds",                  category: "pantry", amounts: { "2": "30g",   "3": "30g",   "4": "30g" } }
+    ],
+    steps: [
+      "Add 350ml lukewarm water and your honey to the bread machine pan (or follow your machine's stated order — some want dry ingredients first!).",
+      "Add your strong wholemeal bread flour on top, then 25g butter in small pieces in one corner, 1.5 tsp salt in another, and your fast-action dried yeast in a well in the centre — keep the yeast away from the salt.",
+      "Add your mixed seeds (or hold them back for the machine's nut/seed beep if it has one).",
+      "Set the machine to its wholemeal programme, medium crust, and start. That's it — 5 minutes of effort, one 5-ingredient loaf, nothing you can't pronounce.",
+      "When it's done, tip the loaf out and cool completely on a rack before slicing (patience makes it sliceable!). Keeps 2-3 days wrapped in a clean tea towel — a loaf every couple of days keeps breakfasts and lunches in fresh wholemeal bread. Enjoy!"
+    ]
   }
 ];

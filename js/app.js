@@ -4,15 +4,26 @@
 
   var RECIPES = window.RECIPES || [];
   var A = window.Amounts;
+  var S = window.Swaps;
   var DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  var SLOTS = [
+    { key: 'b', label: 'Breakfast', short: 'B' },
+    { key: 'l', label: 'Lunch', short: 'L' },
+    { key: 'd', label: 'Dinner', short: 'D' }
+  ];
   var STORE_KEY = 'mealplanner.v1';
+
+  function mealTypeOf(recipe) { return recipe.mealType || 'dinner'; }
 
   /* ---------------- state ---------------- */
 
+  function emptyDay() { return { b: [], l: [], d: [] }; }
+
   var state = load() || {
     weekCommencing: nextMonday(),
-    days: [[], [], [], [], [], [], []], // each: {recipeId, servings}
-    checked: {}                          // shopping ticks, keyed by "name|unit"
+    days: [emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay()],
+    checked: {},                          // shopping ticks, keyed by ingredient name
+    swaps: { wholemeal: false, upf: false }
   };
 
   function load() {
@@ -21,7 +32,13 @@
       if (!raw) return null;
       var s = JSON.parse(raw);
       if (!s.days || s.days.length !== 7) return null;
+      // migrate pre-slot plans: a day was a flat array of dinners
+      s.days = s.days.map(function (day) {
+        if (Array.isArray(day)) return { b: [], l: [], d: day };
+        return { b: day.b || [], l: day.l || [], d: day.d || [] };
+      });
       s.checked = s.checked || {};
+      s.swaps = s.swaps || { wholemeal: false, upf: false };
       return s;
     } catch (e) { return null; }
   }
@@ -110,77 +127,94 @@
       var body = document.createElement('div');
       body.className = 'day-body';
 
-      var meals = state.days[dayIdx];
-      if (!meals.length) {
-        body.innerHTML = '<div class="day-empty no-print">drop a recipe here</div>';
-      }
-      meals.forEach(function (meal, mealIdx) {
-        var recipe = findRecipe(meal.recipeId);
-        if (!recipe) return;
-        var el = document.createElement('div');
-        el.className = 'meal';
+      SLOTS.forEach(function (slot) {
+        var zone = document.createElement('div');
+        zone.className = 'slot';
+        zone.dataset.slot = slot.key;
 
-        var title = document.createElement('div');
-        title.className = 'meal-title';
-        title.textContent = recipe.title;
-        title.title = 'View recipe';
-        title.addEventListener('click', function () { openModal(recipe.id, meal.servings); });
-        el.appendChild(title);
+        var label = document.createElement('div');
+        label.className = 'slot-label';
+        label.textContent = slot.label;
+        zone.appendChild(label);
 
-        var controls = document.createElement('div');
-        controls.className = 'meal-controls';
-        var sel = document.createElement('select');
-        (recipe.servingsSupported || [2]).forEach(function (n) {
-          var opt = document.createElement('option');
-          opt.value = n;
-          opt.textContent = n + ' ppl';
-          if (n === meal.servings) opt.selected = true;
-          sel.appendChild(opt);
+        var meals = state.days[dayIdx][slot.key];
+        meals.forEach(function (meal, mealIdx) {
+          var recipe = findRecipe(meal.recipeId);
+          if (!recipe) return;
+          var el = document.createElement('div');
+          el.className = 'meal';
+
+          var title = document.createElement('div');
+          title.className = 'meal-title';
+          title.textContent = recipe.title;
+          title.title = 'View recipe';
+          title.addEventListener('click', function () { openModal(recipe.id, meal.servings); });
+          el.appendChild(title);
+
+          var controls = document.createElement('div');
+          controls.className = 'meal-controls';
+          var sel = document.createElement('select');
+          (recipe.servingsSupported || [2]).forEach(function (n) {
+            var opt = document.createElement('option');
+            opt.value = n;
+            opt.textContent = n + ' ppl';
+            if (n === meal.servings) opt.selected = true;
+            sel.appendChild(opt);
+          });
+          sel.addEventListener('change', function () {
+            meal.servings = parseInt(sel.value, 10);
+            save(); renderShopping();
+          });
+          controls.appendChild(sel);
+          el.appendChild(controls);
+
+          var rm = document.createElement('button');
+          rm.className = 'meal-remove no-print';
+          rm.innerHTML = '✕';
+          rm.title = 'Remove';
+          rm.addEventListener('click', function () {
+            state.days[dayIdx][slot.key].splice(mealIdx, 1);
+            save(); renderPlanner(); renderShopping();
+          });
+          el.appendChild(rm);
+
+          zone.appendChild(el);
         });
-        sel.addEventListener('change', function () {
-          meal.servings = parseInt(sel.value, 10);
-          save(); renderShopping();
-        });
-        controls.appendChild(sel);
-        el.appendChild(controls);
 
-        var rm = document.createElement('button');
-        rm.className = 'meal-remove no-print';
-        rm.innerHTML = '✕';
-        rm.title = 'Remove';
-        rm.addEventListener('click', function () {
-          state.days[dayIdx].splice(mealIdx, 1);
-          save(); renderPlanner(); renderShopping();
+        // drag target per slot
+        zone.addEventListener('dragover', function (e) { e.preventDefault(); zone.classList.add('drag-over'); });
+        zone.addEventListener('dragleave', function () { zone.classList.remove('drag-over'); });
+        zone.addEventListener('drop', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          zone.classList.remove('drag-over');
+          var id = e.dataTransfer.getData('text/recipe-id');
+          if (id) addToDay(dayIdx, slot.key, id);
         });
-        el.appendChild(rm);
 
-        body.appendChild(el);
+        body.appendChild(zone);
       });
 
       day.appendChild(body);
-
-      // drag targets
-      day.addEventListener('dragover', function (e) { e.preventDefault(); day.classList.add('drag-over'); });
-      day.addEventListener('dragleave', function () { day.classList.remove('drag-over'); });
-      day.addEventListener('drop', function (e) {
-        e.preventDefault();
-        day.classList.remove('drag-over');
-        var id = e.dataTransfer.getData('text/recipe-id');
-        if (id) addToDay(dayIdx, id);
-      });
-
       plannerEl.appendChild(day);
     });
 
     updatePrintTitle();
   }
 
-  function addToDay(dayIdx, recipeId) {
+  function addToDay(dayIdx, slotKey, recipeId) {
     var recipe = findRecipe(recipeId);
     if (!recipe) return;
     var defaultServings = (recipe.servingsSupported && recipe.servingsSupported[0]) || 2;
-    state.days[dayIdx].push({ recipeId: recipeId, servings: defaultServings });
+    state.days[dayIdx][slotKey].push({ recipeId: recipeId, servings: defaultServings });
     save(); renderPlanner(); renderShopping();
+  }
+
+  // dropping a recipe onto its natural slot: breakfast recipes default to the
+  // breakfast row via the popover; drag targets are explicit slot zones.
+  function defaultSlotFor(recipe) {
+    var t = mealTypeOf(recipe);
+    return t === 'breakfast' ? 'b' : t === 'lunch' ? 'l' : 'd';
   }
 
   function updatePrintTitle() {
@@ -205,6 +239,7 @@
   var gridEl = document.getElementById('recipe-grid');
   var filterEls = {
     search: document.getElementById('f-search'),
+    meal: document.getElementById('f-meal'),
     cuisine: document.getElementById('f-cuisine'),
     time: document.getElementById('f-time'),
     calories: document.getElementById('f-calories'),
@@ -233,6 +268,7 @@
         (r.ingredients || []).map(function (i) { return i.name; }).join(' ')).toLowerCase();
       if (hay.indexOf(q) === -1) return false;
     }
+    if (f.meal.value && mealTypeOf(r) !== f.meal.value) return false;
     if (f.cuisine.value && r.cuisine !== f.cuisine.value) return false;
     if (f.time.value && r.timeMinutes.max > parseInt(f.time.value, 10)) return false;
     if (f.calories.value && r.nutritionPerServing.calories > parseInt(f.calories.value, 10)) return false;
@@ -318,7 +354,10 @@
 
       var tags = document.createElement('div');
       tags.className = 'recipe-tags';
-      var tagList = [r.cuisine].concat(r.tags || []);
+      var mealChip = mealTypeOf(r) !== 'dinner'
+        ? { breakfast: '🌅 Breakfast', lunch: '🥗 Lunch', bake: '🍞 Bake' }[mealTypeOf(r)]
+        : null;
+      var tagList = [mealChip, r.cuisine].concat(r.tags || []);
       tagList.forEach(function (t) {
         if (!t) return;
         var el = document.createElement('span');
@@ -352,14 +391,34 @@
 
   function openDayPopover(anchor, recipeId) {
     popover.innerHTML = '';
+    var recipe = findRecipe(recipeId);
+    var naturalSlot = recipe ? defaultSlotFor(recipe) : 'd';
     DAY_NAMES.forEach(function (name, idx) {
+      var row = document.createElement('div');
+      row.className = 'popover-row';
+
       var b = document.createElement('button');
       b.textContent = name;
+      b.title = 'Add to ' + name + ' ' + SLOTS.filter(function (s) { return s.key === naturalSlot; })[0].label.toLowerCase();
       b.addEventListener('click', function () {
-        addToDay(idx, recipeId);
+        addToDay(idx, naturalSlot, recipeId);
         closePopover();
       });
-      popover.appendChild(b);
+      row.appendChild(b);
+
+      SLOTS.forEach(function (slot) {
+        var sb = document.createElement('button');
+        sb.className = 'popover-slot' + (slot.key === naturalSlot ? ' natural' : '');
+        sb.textContent = slot.short;
+        sb.title = name + ' ' + slot.label.toLowerCase();
+        sb.addEventListener('click', function () {
+          addToDay(idx, slot.key, recipeId);
+          closePopover();
+        });
+        row.appendChild(sb);
+      });
+
+      popover.appendChild(row);
     });
     var rect = anchor.getBoundingClientRect();
     popover.classList.remove('hidden');
@@ -472,9 +531,11 @@
   function plannedMeals() {
     var meals = [];
     state.days.forEach(function (day, dayIdx) {
-      day.forEach(function (m) {
-        var r = findRecipe(m.recipeId);
-        if (r) meals.push({ recipe: r, servings: m.servings, dayIdx: dayIdx });
+      SLOTS.forEach(function (slot) {
+        day[slot.key].forEach(function (m) {
+          var r = findRecipe(m.recipeId);
+          if (r) meals.push({ recipe: r, servings: m.servings, dayIdx: dayIdx, slot: slot.key });
+        });
       });
     });
     return meals;
@@ -528,13 +589,16 @@
       g.innerHTML = '<h3>' + esc(cat) + '</h3>';
       groups[cat].sort(function (a, b) { return a.name.localeCompare(b.name); });
       groups[cat].forEach(function (row) {
-        var key = row.name.toLowerCase();
+        var key = row.name.toLowerCase(); // tick state keys on the ORIGINAL name so toggling swaps keeps ticks
+        var swap = S.apply(row.name, state.swaps);
         var item = document.createElement('div');
-        item.className = 'shop-item' + (state.checked[key] ? ' checked' : '');
+        item.className = 'shop-item' + (state.checked[key] ? ' checked' : '') + (swap.swappedFrom ? ' swapped' : '');
         var qty = A.formatParts(row.parts, row.unparsed);
         item.innerHTML =
           '<label><input type="checkbox"' + (state.checked[key] ? ' checked' : '') + '>' +
-          '<span class="shop-name">' + esc(row.name) + '</span>' +
+          '<span class="shop-name">' + esc(swap.name) +
+          (swap.swappedFrom ? '<span class="swap-note">instead of ' + esc(swap.swappedFrom) + '</span>' : '') +
+          '</span>' +
           '<span class="shop-qty">' + esc(qty) + '</span></label>';
         item.querySelector('input').addEventListener('change', function (e) {
           state.checked[key] = e.target.checked;
@@ -554,6 +618,92 @@
     staplesEl.innerHTML = list.length
       ? '<strong>Check your cupboard:</strong> ' + esc(list.join(', '))
       : '';
+
+    renderAnalysis(meals);
+  }
+
+  /* ---------------- week nutrition analysis ----------------
+   * All values are per person per day: nutritionPerServing is per person, so a
+   * day's intake is simply the sum across that day's planned meals.
+   * Targets (tweakable): protein-heavy >= 90g/day, carb-light <= 200g/day.
+   */
+  var TARGET_PROTEIN = 90;
+  var TARGET_CARBS = 200;
+  var analysisEl = document.getElementById('analysis');
+
+  function renderAnalysis(meals) {
+    if (!meals.length) {
+      analysisEl.innerHTML = '<div class="shopping-empty no-print">Plan some meals and the week’s nutrition picture will appear here.</div>';
+      return;
+    }
+
+    var days = state.days.map(function (day, i) {
+      var t = { kcal: 0, protein: 0, carbs: 0, fibre: 0, count: 0, slots: { b: 0, l: 0, d: 0 } };
+      SLOTS.forEach(function (slot) {
+        day[slot.key].forEach(function (m) {
+          var r = findRecipe(m.recipeId);
+          if (!r || mealTypeOf(r) === 'bake') { if (r) t.slots[slot.key]++; return; } // a loaf isn't a meal
+          var n = r.nutritionPerServing;
+          t.kcal += n.calories; t.protein += n.proteinG; t.carbs += n.carbsG; t.fibre += n.fibreG || 0;
+          t.count++; t.slots[slot.key]++;
+        });
+      });
+      return t;
+    });
+
+    var html = '<table class="analysis-table"><tr><th></th>';
+    DAY_NAMES.forEach(function (d) { html += '<th>' + d.slice(0, 3) + '</th>'; });
+    html += '</tr>';
+
+    function row(label, fmt, cls) {
+      html += '<tr><td>' + label + '</td>';
+      days.forEach(function (t) {
+        var out = t.count ? fmt(t) : '–';
+        var c = t.count && cls ? cls(t) : '';
+        html += '<td class="' + c + '">' + out + '</td>';
+      });
+      html += '</tr>';
+    }
+
+    row('Meals', function (t) {
+      return ['b', 'l', 'd'].map(function (k) { return t.slots[k] ? '✓' : '·'; }).join(' ');
+    });
+    row('kcal', function (t) { return Math.round(t.kcal); });
+    row('Protein', function (t) { return Math.round(t.protein) + 'g'; },
+      function (t) { return t.protein >= TARGET_PROTEIN ? 'good' : 'warn'; });
+    row('Carbs', function (t) { return Math.round(t.carbs) + 'g'; },
+      function (t) { return t.carbs <= TARGET_CARBS ? 'good' : 'warn'; });
+    html += '</table>';
+
+    // week roll-up
+    var planned = days.filter(function (t) { return t.count; });
+    var avg = function (k) {
+      return Math.round(planned.reduce(function (s, t) { return s + t[k]; }, 0) / planned.length);
+    };
+
+    // vegetable variety: distinct produce-category ingredients across the planned week
+    var veg = {};
+    var titleCount = {};
+    meals.forEach(function (m) {
+      titleCount[m.recipe.title] = (titleCount[m.recipe.title] || 0) + 1;
+      (m.recipe.ingredients || []).forEach(function (ing) {
+        if (ing.category === 'produce') veg[ing.name.toLowerCase().replace(/\s*\(.*\)$/, '')] = true;
+      });
+    });
+    var vegCount = Object.keys(veg).length;
+    var repeats = Object.keys(titleCount).filter(function (t) { return titleCount[t] > 1; });
+
+    html += '<div class="analysis-summary">';
+    html += '<span><b>' + avg('kcal') + '</b> kcal avg/day</span>';
+    html += '<span class="' + (avg('protein') >= TARGET_PROTEIN ? 'good' : 'warn') + '"><b>' + avg('protein') + 'g</b> protein avg/day (target ≥ ' + TARGET_PROTEIN + 'g)</span>';
+    html += '<span class="' + (avg('carbs') <= TARGET_CARBS ? 'good' : 'warn') + '"><b>' + avg('carbs') + 'g</b> carbs avg/day (target ≤ ' + TARGET_CARBS + 'g)</span>';
+    html += '<span class="' + (vegCount >= 15 ? 'good' : '') + '"><b>' + vegCount + '</b> different vegetables &amp; fruits this week</span>';
+    if (repeats.length) {
+      html += '<span class="warn">Repeated: ' + esc(repeats.map(function (t) { return t + ' ×' + titleCount[t]; }).join(', ')) + '</span>';
+    }
+    html += '</div>';
+
+    analysisEl.innerHTML = html;
   }
 
   function shoppingAsText() {
@@ -565,12 +715,20 @@
       var cat = CATEGORY_ORDER.indexOf(row.category) !== -1 ? row.category : 'other';
       (groups[cat] = groups[cat] || []).push(row);
     });
+    if (state.swaps.wholemeal || state.swaps.upf) {
+      lines.push('Swaps on: ' +
+        [state.swaps.wholemeal ? 'wholemeal carbs' : null, state.swaps.upf ? 'UPF swapped out' : null]
+          .filter(Boolean).join(', '));
+      lines.push('');
+    }
     CATEGORY_ORDER.forEach(function (cat) {
       if (!groups[cat]) return;
       lines.push(cat.toUpperCase());
       groups[cat].sort(function (a, b) { return a.name.localeCompare(b.name); });
       groups[cat].forEach(function (row) {
-        lines.push('  [ ] ' + row.name + ' — ' + A.formatParts(row.parts, row.unparsed));
+        var swap = S.apply(row.name, state.swaps);
+        lines.push('  [ ] ' + swap.name + ' — ' + A.formatParts(row.parts, row.unparsed) +
+          (swap.swappedFrom ? ' (instead of ' + swap.swappedFrom + ')' : ''));
       });
       lines.push('');
     });
@@ -637,6 +795,20 @@
     save(); renderShopping();
   });
 
+  /* healthier-swap toggles */
+  var swapWholemeal = document.getElementById('swap-wholemeal');
+  var swapUpf = document.getElementById('swap-upf');
+  swapWholemeal.checked = state.swaps.wholemeal;
+  swapUpf.checked = state.swaps.upf;
+  swapWholemeal.addEventListener('change', function () {
+    state.swaps.wholemeal = swapWholemeal.checked;
+    save(); renderShopping();
+  });
+  swapUpf.addEventListener('change', function () {
+    state.swaps.upf = swapUpf.checked;
+    save(); renderShopping();
+  });
+
   /* filters wiring */
   Object.keys(filterEls).forEach(function (k) {
     var el = filterEls[k];
@@ -644,6 +816,7 @@
   });
   document.getElementById('f-clear').addEventListener('click', function () {
     filterEls.search.value = '';
+    filterEls.meal.value = '';
     filterEls.cuisine.value = '';
     filterEls.time.value = '';
     filterEls.calories.value = '';

@@ -39,6 +39,13 @@
 
       <div class="filters" id="filters">
         <input type="search" id="f-search" placeholder="Search recipes or ingredients…">
+        <select id="f-meal">
+          <option value="">All meals</option>
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="dinner">Dinner</option>
+          <option value="bake">Bakes</option>
+        </select>
         <select id="f-cuisine">
           <option value="">All cuisines</option>
         </select>
@@ -78,6 +85,12 @@
       <div id="recipe-grid" class="recipe-grid"></div>
     </section>
 
+    <!-- ======================= WEEK ANALYSIS ======================= -->
+    <section id="analysis-section" class="section">
+      <h2>Week nutrition <span class="hint-inline no-print">per person, per day — aiming carb-light &amp; protein-heavy</span></h2>
+      <div id="analysis" class="analysis"></div>
+    </section>
+
     <!-- ======================= SHOPPING LIST ======================= -->
     <section id="shopping-section" class="section">
       <div class="section-head">
@@ -86,6 +99,11 @@
           <button id="copy-list" class="btn btn-quiet">📋 Copy as text</button>
           <button id="uncheck-all" class="btn btn-quiet">Untick all</button>
         </div>
+      </div>
+      <div class="swap-controls no-print" id="swap-controls">
+        <span>Healthier swaps:</span>
+        <label class="chk"><input type="checkbox" id="swap-wholemeal"> Wholemeal carbs</label>
+        <label class="chk"><input type="checkbox" id="swap-upf"> Swap out UPF</label>
       </div>
       <div id="shopping-meta" class="shopping-meta"></div>
       <div id="shopping-list" class="shopping-list"></div>
@@ -106,6 +124,7 @@
   <div id="day-popover" class="day-popover hidden"></div>
 
   <script src="js/amounts.js"></script>
+  <script src="js/swaps.js"></script>
   <script src="data/recipes.js"></script>
   <script src="js/app.js"></script>
 </body>
