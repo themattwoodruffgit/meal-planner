@@ -8818,6 +8818,46 @@ window.RECIPES = [
     ]
   },
   {
+    id: "X-009",
+    title: "Salmon En Croute With Baby Potatoes & Broccoli",
+    source: "Family staple",
+    cuisine: "French",
+    tags: ["Family staple", "2 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 50, max: 60 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 820, fatG: 48, satFatG: 20, carbsG: 55,
+      sugarG: 5, fibreG: 7, proteinG: 42, saltG: 1.4
+    },
+    allergens: ["fish (salmon)", "gluten (pastry)", "milk (soft cheese, butter)", "egg"],
+    staples: ["butter", "salt", "pepper", "baking paper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "skinless salmon fillets",            category: "meat & fish", amounts: { "2": "2",    "3": "3",    "4": "4" } },
+      { name: "ready-rolled puff pastry (320g)",    category: "bakery",      amounts: { "2": "1",    "3": "1",    "4": "2" } },
+      { name: "soft cheese",                        category: "dairy",       amounts: { "2": "75g",  "3": "100g", "4": "150g" } },
+      { name: "spinach",                            category: "produce",     amounts: { "2": "120g", "3": "180g", "4": "240g" } },
+      { name: "garlic clove",                       category: "produce",     amounts: { "2": "1",    "3": "2",    "4": "2" } },
+      { name: "dill",                               category: "produce",     amounts: { "2": "5g",   "3": "10g",  "4": "10g" } },
+      { name: "lemon",                              category: "produce",     amounts: { "2": "1",    "3": "1",    "4": "1" } },
+      { name: "egg",                                category: "dairy",       amounts: { "2": "1",    "3": "1",    "4": "1" } },
+      { name: "baby potatoes",                      category: "produce",     amounts: { "2": "400g", "3": "600g", "4": "800g" } },
+      { name: "broccoli",                           category: "produce",     amounts: { "2": "300g", "3": "450g", "4": "600g" } }
+    ],
+    steps: [
+      "Preheat the oven to 200°C/ 180°C (fan)/ gas 6 and take your puff pastry out of the fridge (it handles best at room temperature). Boil a kettle.",
+      "Wash your spinach and add to a colander, then pour over boiled water until wilted. Once cool enough to handle, squeeze out as much water as you can (really squeeze – wet spinach means soggy pastry!) and chop roughly. Peel and finely chop (or grate) your garlic. Chop your dill finely.",
+      "Mix the chopped spinach, garlic and most of the dill with your soft cheese, the zest of your lemon and a generous pinch of salt and pepper – this is your creamy spinach filling.",
+      "Unroll your puff pastry on its paper and cut into 1 rectangle per fillet. Spread the creamy spinach filling over the middle of each, sit a salmon fillet on top and season. Fold the pastry over and pinch the edges together to seal (crimp with a fork for the full bakery look). Beat your egg and brush it all over, then cut 2 small slits in each top to let steam out.",
+      "Transfer the parcels (sealed-side down) to a baking paper-lined tray and bake for 25-30 min or until the pastry is puffed, deep golden and crisp underneath – these are your salmon en croutes.",
+      "When the parcels have 20 min to go, halve any larger baby potatoes and add to a pot of cold, salted water. Bring to the boil and cook for 15-18 min or until a knife slides through easily. Drain, return to the pan and toss with a knob of butter and a pinch of salt.",
+      "Meanwhile, cut your broccoli into florets. When the potatoes have 5 min to go, boil or steam the broccoli for 4-5 min or until just tender with a little bite.",
+      "Serve a salmon en croute per person with the buttered baby potatoes and broccoli to the side. Garnish with the remaining dill and the lemon, cut into wedges. Enjoy!"
+    ]
+  },
+  {
     id: "X-101",
     title: "Granola, Greek Yoghurt & Berry Bowl",
     source: "Family staple",

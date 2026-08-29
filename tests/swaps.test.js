@@ -32,6 +32,7 @@ eq(S.apply('hoisin sauce', upf).name, 'homemade hoisin (soy, honey, peanut butte
 eq(S.apply('crispy onions', upf).name, 'shallots, thinly sliced and pan-fried until crisp', 'crispy onions');
 eq(S.apply('granola', upf).swappedFrom, 'granola', 'granola flagged');
 eq(S.apply('pork sausages', upf).swappedFrom, 'pork sausages', 'sausages flagged');
+eq(S.apply('ready-rolled puff pastry (320g)', upf).name, 'all-butter puff pastry with a short ingredient list', 'puff pastry flagged');
 eq(S.apply('soy sauce', upf).swappedFrom, null, 'traditional soy sauce untouched');
 eq(S.apply('tomato paste (32g)', upf).swappedFrom, null, 'tomato paste untouched');
 

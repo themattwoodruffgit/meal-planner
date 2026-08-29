@@ -47,6 +47,7 @@
     { match: 'gnocchi',           swap: 'gnocchi with a short ingredient list (or homemade)' },
     { match: 'granola',           swap: 'low-sugar granola with a short ingredient list (or homemade: oats, nuts, honey)' },
     { match: 'pork sausages',     swap: "butcher's high-meat-content sausages (check the label)" },
+    { match: 'puff pastry',       swap: 'all-butter puff pastry with a short ingredient list' },
     { match: 'baked beans',       swap: 'cannellini beans simmered in passata' },
     { match: 'tortilla',          swap: 'wraps with a short ingredient list' },
     { match: 'ciabatta',          swap: 'a fresh bakery loaf' }
