@@ -1000,6 +1000,52 @@
     save(); renderPlanner(); renderShopping();
   });
 
+  /* ---------------- shared plan links ----------------
+   * Plans are per-device (no backend), so sharing works by packing the week's
+   * plan into a URL fragment. Opening the link on another device imports it.
+   */
+  function encodePlanLink() {
+    var payload = { v: 1, wc: state.weekCommencing, days: wk().days, extras: state.extras };
+    var json = JSON.stringify(payload);
+    var b64 = btoa(unescape(encodeURIComponent(json)))
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    return location.origin + location.pathname + '#plan=' + b64;
+  }
+
+  function tryImportPlanFromHash() {
+    var m = location.hash.match(/^#plan=([A-Za-z0-9_-]+)$/);
+    if (!m) return;
+    try {
+      var json = decodeURIComponent(escape(atob(m[1].replace(/-/g, '+').replace(/_/g, '/'))));
+      var p = JSON.parse(json);
+      if (p.v !== 1 || !p.wc || !Array.isArray(p.days) || p.days.length !== 7) throw new Error('bad payload');
+      var ok = confirm('Import the shared meal plan for week commencing ' + p.wc + '? This replaces that week\'s plan on this device.');
+      if (ok) {
+        state.weeks[p.wc] = { days: migrateDays(p.days), checked: {} };
+        state.weekCommencing = p.wc;
+        (p.extras || []).forEach(function (x) {
+          if (x && x.name && !state.extras.some(function (e) { return e.name.toLowerCase() === x.name.toLowerCase(); })) {
+            state.extras.push({ name: String(x.name), qty: String(x.qty || '') });
+          }
+        });
+        wcInput.value = state.weekCommencing;
+        save();
+      }
+    } catch (e) {
+      alert('Sorry — that plan link could not be read.');
+    }
+    history.replaceState(null, '', location.pathname);
+  }
+
+  document.getElementById('share-plan').addEventListener('click', function () {
+    var url = encodePlanLink();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () {
+        flashButton('share-plan', '✓ Link copied — WhatsApp it');
+      }, function () { fallbackCopy(url, 'share-plan'); });
+    } else { fallbackCopy(url, 'share-plan'); }
+  });
+
   function printSection(cls) {
     document.body.classList.add(cls);
     window.print();
@@ -1036,12 +1082,12 @@
     } else { fallbackCopy(text); }
   });
 
-  function fallbackCopy(text) {
+  function fallbackCopy(text, btnId) {
     var ta = document.createElement('textarea');
     ta.value = text;
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); flashButton('copy-list', '✓ Copied'); } catch (e) {}
+    try { document.execCommand('copy'); flashButton(btnId || 'copy-list', '✓ Copied'); } catch (e) {}
     document.body.removeChild(ta);
   }
 
@@ -1128,6 +1174,7 @@
   });
 
   /* ---------------- init ---------------- */
+  tryImportPlanFromHash();
   populateCuisines();
   renderPlanner();
   renderRecipes();

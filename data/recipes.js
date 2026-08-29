@@ -8858,6 +8858,50 @@ window.RECIPES = [
     ]
   },
   {
+    id: "X-010",
+    title: "Jeera Chicken With Tarka Dal",
+    source: "Family staple",
+    cuisine: "Indian",
+    tags: ["Family staple", "Gluten-free", "2 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 60, max: 70 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 640, fatG: 30, satFatG: 9, carbsG: 40,
+      sugarG: 7, fibreG: 8, proteinG: 54, saltG: 0.8
+    },
+    allergens: ["milk (yoghurt, butter)"],
+    staples: ["vegetable oil", "butter (or ghee)", "salt", "pepper", "water"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "whole chicken (approx 1.5kg)", category: "meat & fish",    amounts: { "2": "1",       "3": "1",        "4": "1" } },
+      { name: "natural yoghurt",              category: "dairy",          amounts: { "2": "100g",    "3": "150g",     "4": "200g" } },
+      { name: "cumin seeds",                  category: "herbs & spices", amounts: { "2": "2 tbsp",  "3": "2 tbsp",   "4": "3 tbsp" } },
+      { name: "ground coriander",             category: "herbs & spices", amounts: { "2": "2 tsp",   "3": "2 tsp",    "4": "1 tbsp" } },
+      { name: "garam masala",                 category: "herbs & spices", amounts: { "2": "1 tsp",   "3": "1.5 tsp",  "4": "2 tsp" } },
+      { name: "ground turmeric",              category: "herbs & spices", amounts: { "2": "1 tsp",   "3": "1.5 tsp",  "4": "2 tsp" } },
+      { name: "garlic clove",                 category: "produce",        amounts: { "2": "4",       "3": "5",        "4": "6" } },
+      { name: "fresh root ginger",            category: "produce",        amounts: { "2": "20g",     "3": "25g",      "4": "30g" } },
+      { name: "green chilli",                 category: "produce",        amounts: { "2": "1",       "3": "1",        "4": "2" } },
+      { name: "brown onion",                  category: "produce",        amounts: { "2": "2",       "3": "2",        "4": "3" } },
+      { name: "tomato",                       category: "produce",        amounts: { "2": "1",       "3": "2",        "4": "2" } },
+      { name: "red lentils",                  category: "pantry",         amounts: { "2": "150g",    "3": "225g",     "4": "300g" } },
+      { name: "coriander",                    category: "produce",        amounts: { "2": "10g",     "3": "10g",      "4": "20g" } },
+      { name: "lemon",                        category: "produce",        amounts: { "2": "1",       "3": "1",        "4": "1" } }
+    ],
+    steps: [
+      "Joint your whole chicken into 8-10 bone-in pieces (legs, thighs, wings, breasts halved) — or have the butcher do it. Peel and finely chop (or grate) your garlic and ginger. Coarsely crush half your cumin seeds with a pestle and mortar (you'll use the rest later!).",
+      "Add the chicken pieces to a large bowl with your yoghurt, the crushed cumin, your ground coriander, garam masala, half your ground turmeric, half the chopped garlic and ginger, the juice of half your lemon[s] and a generous pinch of salt. Massage it all in and set aside to marinate while you prep — 15 min minimum, overnight in the fridge if you're organised. Cooking for 2? A whole bird gives glorious leftovers.",
+      "Rinse your red lentils in a sieve until the water runs clear, then add to a pot with 600ml [900ml] [1.2L] cold water, the remaining ground turmeric and a pinch of salt. Bring to the boil, skim off any foam, then simmer for 20-25 min, stirring now and then, until soft and collapsing. Whisk briefly until creamy and loosen with a splash of water if needed — this is your dal.",
+      "Meanwhile, peel and finely slice your brown onions. Chop your tomato[es] roughly. Slit your green chilli[es] lengthways.",
+      "Heat a very large, wide-based pan (with a matching lid) with a drizzle of vegetable oil over a high heat. Once hot, brown the marinated chicken pieces for 2-3 min on each side, in batches if needed, and set aside — they'll finish cooking later.",
+      "Reduce the heat to medium and add a drizzle more oil with most of the remaining cumin seeds (save a pinch for the tarka!). Once they sizzle, add the sliced onions with a pinch of salt and cook for 10-12 min, stirring often, until deeply golden. Add the remaining garlic and ginger and the chopped tomato and cook for 2 min further.",
+      "Return the chicken and any juices to the pan with a splash of water, cover, and cook over a medium-low heat for 25-30 min, turning halfway, until the chicken is cooked through at the bone (no pink meat!). Remove the lid and let it bubble for a final few minutes until the masala clings to the pieces — jeera chicken is a dry-style dish, not a saucy curry.",
+      "For the tarka: melt a knob of butter (or ghee) in a small pan, add the reserved cumin seeds and the slit green chilli and sizzle for 30 secs, then pour it over the dal. Chop your coriander roughly and scatter over both. Serve the jeera chicken with the tarka dal alongside and the remaining lemon in wedges. Enjoy!"
+    ]
+  },
+  {
     id: "X-101",
     title: "Granola, Greek Yoghurt & Berry Bowl",
     source: "Family staple",
