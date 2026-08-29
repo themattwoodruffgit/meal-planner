@@ -22,6 +22,7 @@ eq(S.apply('spaghetti', wm).name, 'wholewheat spaghetti', 'spaghetti');
 eq(S.apply('linguine', wm).name, 'wholewheat linguine', 'linguine');
 eq(S.apply('plain tortillas', wm).name, 'wholemeal tortillas', 'tortillas wholemeal');
 eq(S.apply('ciabatta (1pcs)', wm).name, 'wholemeal ciabatta (or crusty wholemeal roll)', 'ciabatta');
+eq(S.apply('naan breads', wm).name, 'wholemeal pitta (shop wholemeal naan is rare)', 'naan -> wholemeal pitta');
 eq(S.apply('gnocchi (250g)', wm).swappedFrom, null, 'gnocchi is potato — not a wholemeal target');
 
 // UPF rules

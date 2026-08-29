@@ -8902,6 +8902,51 @@ window.RECIPES = [
     ]
   },
   {
+    id: "X-011",
+    title: "Tandoori Chicken With Naan & Kachumber Salad",
+    source: "Family staple",
+    cuisine: "Indian",
+    tags: ["Family staple", "2 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 55, max: 65 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 680, fatG: 28, satFatG: 8, carbsG: 55,
+      sugarG: 8, fibreG: 6, proteinG: 52, saltG: 1.6
+    },
+    allergens: ["milk (yoghurt)", "gluten (naan)"],
+    staples: ["vegetable oil", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "whole chicken (approx 1.5kg)", category: "meat & fish",    amounts: { "2": "1",       "3": "1",       "4": "1" } },
+      { name: "natural yoghurt",              category: "dairy",          amounts: { "2": "150g",    "3": "200g",    "4": "250g" } },
+      { name: "ground cumin",                 category: "herbs & spices", amounts: { "2": "2 tsp",   "3": "2 tsp",   "4": "1 tbsp" } },
+      { name: "ground coriander",             category: "herbs & spices", amounts: { "2": "2 tsp",   "3": "2 tsp",   "4": "1 tbsp" } },
+      { name: "ground paprika",               category: "herbs & spices", amounts: { "2": "1 tbsp",  "3": "1 tbsp",  "4": "1.5 tbsp" } },
+      { name: "garam masala",                 category: "herbs & spices", amounts: { "2": "1 tsp",   "3": "1.5 tsp", "4": "2 tsp" } },
+      { name: "ground turmeric",              category: "herbs & spices", amounts: { "2": "0.5 tsp", "3": "0.75 tsp", "4": "1 tsp" } },
+      { name: "chilli powder",                category: "herbs & spices", amounts: { "2": "0.5 tsp", "3": "0.75 tsp", "4": "1 tsp" } },
+      { name: "garlic clove",                 category: "produce",        amounts: { "2": "4",       "3": "5",       "4": "6" } },
+      { name: "fresh root ginger",            category: "produce",        amounts: { "2": "20g",     "3": "25g",     "4": "30g" } },
+      { name: "lemon",                        category: "produce",        amounts: { "2": "1",       "3": "1",       "4": "2" } },
+      { name: "naan breads",                  category: "bakery",         amounts: { "2": "2",       "3": "3",       "4": "4" } },
+      { name: "cucumber",                     category: "produce",        amounts: { "2": "½",       "3": "¾",       "4": "1" } },
+      { name: "tomato",                       category: "produce",        amounts: { "2": "2",       "3": "3",       "4": "4" } },
+      { name: "red onion",                    category: "produce",        amounts: { "2": "½",       "3": "¾",       "4": "1" } },
+      { name: "coriander",                    category: "produce",        amounts: { "2": "10g",     "3": "10g",     "4": "20g" } }
+    ],
+    steps: [
+      "Joint your whole chicken into 8-10 bone-in pieces (or have the butcher do it) and pull the skin off the larger pieces. Slash each piece 2-3 times down to the bone — this lets the marinade get right in and helps it cook evenly. Cooking for 2? The leftovers make a superb next-day lunch.",
+      "Peel and finely chop (or grate) your garlic and ginger. In a large bowl, mix your yoghurt with the garlic and ginger, your ground cumin, ground coriander, ground paprika, garam masala, ground turmeric and chilli powder (can't handle the heat? Go easy!), the juice of half your lemon[s], a drizzle of vegetable oil and a very generous pinch of salt — this is your tandoori marinade.",
+      "Add the chicken pieces to the tandoori marinade and massage it into every slash. Marinate for at least 30 min — overnight in the fridge is where the magic happens.",
+      "Preheat the oven to 220°C/ 200°C (fan)/ gas 7. Arrange the chicken on a wire rack over a foil-lined tray (the rack keeps it roasting, not stewing) and cook for 35-40 min, turning once, until charred at the edges and cooked through at the bone (no pink meat!).",
+      "Meanwhile, make your kachumber salad: dice your cucumber and tomato[es], peel and very finely slice your red onion, and roughly chop most of your coriander. Toss it all with a squeeze of lemon and a pinch of salt just before serving.",
+      "When the chicken has 3-4 min to go, warm your naan breads in the bottom of the oven (or 30 secs a side in a dry pan).",
+      "Pile the tandoori chicken onto a platter with the warm naans and kachumber salad alongside. Scatter with the remaining coriander and serve with the rest of the lemon in wedges. Enjoy!"
+    ]
+  },
+  {
     id: "X-101",
     title: "Granola, Greek Yoghurt & Berry Bowl",
     source: "Family staple",

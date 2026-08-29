@@ -29,6 +29,7 @@
     { match: 'ciabatta',              swap: 'wholemeal ciabatta (or crusty wholemeal roll)' },
     { match: 'tortilla',              swap: 'wholemeal tortillas' },
     { match: 'pitta',                 swap: 'wholemeal pitta' },
+    { match: 'naan',                  swap: 'wholemeal pitta (shop wholemeal naan is rare)' },
     { match: 'brioche bun',           swap: 'wholemeal bun' },
     { match: 'burger bun',            swap: 'wholemeal bun' },
     { match: 'white bread',           swap: 'wholemeal bread' }
