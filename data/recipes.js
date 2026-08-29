@@ -8947,6 +8947,42 @@ window.RECIPES = [
     ]
   },
   {
+    id: "X-012",
+    title: "Chicken Miso Soup With Soft-Boiled Eggs",
+    source: "Family staple",
+    cuisine: "Japanese",
+    tags: ["Family staple", "Dairy-free", "2 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: true, vegetarian: false, vegan: false },
+    timeMinutes: { min: 15, max: 20 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 330, fatG: 12, satFatG: 3, carbsG: 14,
+      sugarG: 6, fibreG: 5, proteinG: 38, saltG: 2.5
+    },
+    allergens: ["soya (miso)", "egg", "gluten (some miso pastes – check label)"],
+    staples: ["water"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "cooked chicken",       category: "meat & fish",    amounts: { "2": "200g", "3": "300g", "4": "400g" } },
+      { name: "miso paste sachets",   category: "pantry",         amounts: { "2": "3",    "3": "4",    "4": "6" } },
+      { name: "egg",                  category: "dairy",          amounts: { "2": "2",    "3": "3",    "4": "4" } },
+      { name: "spring onion",         category: "produce",        amounts: { "2": "3",    "3": "4",    "4": "6" } },
+      { name: "fresh root ginger",    category: "produce",        amounts: { "2": "20g",  "3": "25g",  "4": "30g" } },
+      { name: "red chilli",           category: "produce",        amounts: { "2": "1",    "3": "1",    "4": "2" } },
+      { name: "mange tout",           category: "produce",        amounts: { "2": "150g", "3": "200g", "4": "300g" } },
+      { name: "baby corn",            category: "produce",        amounts: { "2": "150g", "3": "200g", "4": "300g" } }
+    ],
+    steps: [
+      "Bring a small pot of water to the boil, gently lower in your eggs and cook for 7 min (set white, jammy middle). Run under cold water, peel and halve.",
+      "Meanwhile, trim and finely slice your spring onions, keeping the white and green parts separate. Peel your ginger (scrape the skin off with a teaspoon) and cut into fine matchsticks. Slice your red chilli[es] into rounds (can't handle the heat? Deseed it, or go easy!). Halve your baby corn lengthways. Shred or slice your cooked chicken.",
+      "Add 900ml [1.3L] [1.8L] water to a large pot with the ginger matchsticks and the spring onion whites and bring to a gentle simmer for 3-4 min to build the base.",
+      "Add the baby corn and simmer for 2 min, then add your mange tout and the cooked chicken and simmer for 2-3 min further, or until the chicken is piping hot and the greens are just tender with plenty of snap.",
+      "Take the pot OFF the heat. Dissolve your miso paste sachets in a ladleful of the hot broth, then stir it back through the pot. Tip: Miso is never boiled — adding it off the heat keeps its flavour alive. Taste and add more miso if you like it deeper.",
+      "Ladle into deep bowls, sit two egg halves on top of each, and finish with the spring onion greens and chilli rounds. Light, hot and sorted in 20 minutes. Enjoy!"
+    ]
+  },
+  {
     id: "X-101",
     title: "Granola, Greek Yoghurt & Berry Bowl",
     source: "Family staple",
