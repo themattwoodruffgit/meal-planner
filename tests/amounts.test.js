@@ -58,6 +58,10 @@ eq(agg[3], { name: 'garam masala', category: 'herbs & spices', parts: [{ qty: 3,
 eq(A.formatPart({ qty: 500, unit: 'g' }), '500g', 'format grams');
 eq(A.formatPart({ qty: 3, unit: '' }), '3', 'format count');
 eq(A.formatPart({ qty: 1.5, unit: 'tsp' }), '1.5 tsp', 'format tsp spaced');
+eq(A.formatPart({ qty: 4, unit: 'rashers' }), '4 rashers', 'word units spaced');
+eq(A.formatPart({ qty: 6, unit: 'slices' }), '6 slices', 'slices spaced');
+eq(A.parseAmount('4 rashers'), [{ qty: 4, unit: 'rashers' }], 'rashers parse');
+eq(A.parseAmount('4 slices & 2 slices'), [{ qty: 6, unit: 'slices' }], 'slices sum');
 eq(A.formatParts([{ qty: 40, unit: 'g' }, { qty: 1, unit: '' }], []), '40g + 1', 'format mixed parts');
 eq(A.formatParts([{ qty: 40, unit: 'g' }], ['a splash']), '40g + a splash', 'unparsed appended');
 

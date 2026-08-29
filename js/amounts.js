@@ -149,15 +149,15 @@
     });
   }
 
-  // "500 g" -> "500g", counts -> "3", tidy decimals
+  // "500 g" -> "500g", counts -> "3", word units spaced ("4 rashers"), tidy decimals
   function formatPart(part) {
     var qty = part.qty;
     var str = (Math.abs(qty - Math.round(qty)) < 1e-9)
       ? String(Math.round(qty))
       : String(qty);
     if (!part.unit) return str;
-    if (part.unit === 'tsp' || part.unit === 'tbsp') return str + ' ' + part.unit;
-    return str + part.unit;
+    if (part.unit.length > 2) return str + ' ' + part.unit; // tsp, tbsp, slices, rashers…
+    return str + part.unit; // g, ml stay tight
   }
 
   function formatParts(parts, unparsed) {

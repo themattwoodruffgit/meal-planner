@@ -9024,6 +9024,39 @@ window.RECIPES = [
     ]
   },
   {
+    id: "X-109",
+    title: "Weekend Cooked Breakfast",
+    source: "Family staple",
+    mealType: "breakfast",
+    cuisine: "British",
+    tags: ["Family staple", "2 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: false, vegan: false },
+    timeMinutes: { min: 20, max: 25 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 590, fatG: 38, satFatG: 11, carbsG: 34,
+      sugarG: 4, fibreG: 9, proteinG: 30, saltG: 2.2
+    },
+    allergens: ["egg", "gluten (bread)", "milk (butter)"],
+    staples: ["butter", "olive oil", "salt", "pepper"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "egg",                category: "dairy",       amounts: { "2": "4",         "3": "6",         "4": "8" } },
+      { name: "smoked back bacon",  category: "meat & fish", amounts: { "2": "4 rashers", "3": "6 rashers", "4": "8 rashers" } },
+      { name: "wholemeal bread",    category: "bakery",      amounts: { "2": "4 slices",  "3": "6 slices",  "4": "8 slices" } },
+      { name: "avocado",            category: "produce",     amounts: { "2": "1",         "3": "2",         "4": "2" } },
+      { name: "chestnut mushrooms", category: "produce",     amounts: { "2": "200g",      "3": "300g",      "4": "400g" } }
+    ],
+    steps: [
+      "Preheat the grill to high (or heat a large pan). Lay your smoked back bacon on the grill rack and cook for 3-4 min on each side, or until it's exactly how your family argues it should be.",
+      "Meanwhile, thickly slice your chestnut mushrooms. Heat a large, wide-based pan with a small knob of butter and a drizzle of olive oil over a medium-high heat, add the mushrooms with a pinch of salt and cook for 5-6 min, stirring now and then, until golden and any liquid has cooked off. Push to one side of the pan (or keep warm under the grill with the bacon).",
+      "Halve, de-stone and slice (or roughly smash) your avocado[s] with a pinch of salt and pepper.",
+      "Add a little more butter to the pan and fry your eggs for 2-3 min for runny yolks (poach them if that's your house style). Meanwhile, toast your wholemeal bread — slices from the bread machine loaf are exactly right here — and butter it.",
+      "Load the plates: toast, avocado, bacon, mushrooms and the eggs on top, with a good grind of black pepper. Weekends sorted. Enjoy!"
+    ]
+  },
+  {
     id: "X-201",
     title: "Chicken, Avocado & Quinoa Lunchbox Salad",
     source: "Family staple",
