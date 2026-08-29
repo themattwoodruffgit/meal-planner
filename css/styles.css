@@ -201,6 +201,20 @@ main { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem 4rem; }
   padding: .08rem .5rem;
   color: var(--muted);
 }
+.rating-row { display: flex; align-items: center; gap: .5rem; }
+.stars { display: inline-flex; gap: .05rem; }
+.stars button {
+  border: 0; background: none; cursor: pointer; padding: 0 .05rem;
+  font-size: 1rem; line-height: 1; color: #ddd4c6;
+}
+.stars button.on { color: #f2a71b; }
+.stars button:hover { transform: scale(1.15); }
+.fam-avg { font-size: .74rem; color: #c9c2b8; }
+.fam-avg.has-rating { color: #b8860b; font-weight: 600; }
+.modal-rating { display: flex; align-items: center; gap: .6rem; margin-bottom: .6rem; flex-wrap: wrap; }
+.modal-rating-label { font-size: .82rem; color: var(--muted); }
+.modal-rating .stars button { font-size: 1.3rem; }
+
 .recipe-actions { margin-top: auto; display: flex; gap: .4rem; }
 .recipe-actions .btn { flex: 1; font-size: .8rem; padding: .35rem .4rem; }
 
@@ -393,6 +407,34 @@ main { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem 4rem; }
 .nut.tl-red { background: var(--red-soft); border-color: #f0c4c4; }
 
 .hidden { display: none !important; }
+
+/* ============ mobile quick-add ============ */
+.fab {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 80;
+  width: 3.4rem; height: 3.4rem; border-radius: 50%;
+  border: 0; background: var(--accent); color: #fff;
+  font-size: 1.3rem; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .3);
+  display: none;
+}
+.fab:active { transform: scale(.94); }
+.fab-panel {
+  position: fixed; right: .8rem; bottom: 5.2rem; z-index: 80;
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .25); padding: .55rem;
+  display: flex; gap: .4rem; align-items: center;
+  max-width: calc(100vw - 1.6rem); flex-wrap: wrap;
+}
+.fab-panel input {
+  font: inherit; font-size: .9rem;
+  padding: .45rem .5rem;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--bg);
+}
+#fab-name { width: 12rem; max-width: 46vw; }
+#fab-qty { width: 4.2rem; }
+@media (max-width: 700px) {
+  .fab { display: block; }
+}
 
 /* ============ responsive ============ */
 @media (max-width: 900px) {

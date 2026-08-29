@@ -19,28 +19,58 @@
 
   function emptyDay() { return { b: [], l: [], d: [] }; }
 
+  function freshDays() {
+    return [emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay()];
+  }
+
   var state = load() || {
     weekCommencing: nextMonday(),
-    days: [emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay()],
-    checked: {},                          // shopping ticks, keyed by ingredient name
+    weeks: {},                            // weekCommencing ISO -> {days: [7 x {b,l,d}], checked: {}}
     swaps: { wholemeal: false, upf: false },
-    extras: []                            // user-added shop items: {name, qty}
+    extras: [],                           // user-added shop items: {name, qty} (shared across weeks)
+    ratings: {}                           // this device's star ratings: recipeId -> 1-5
   };
+
+  // the currently selected week's plan (each week-commencing date keeps its own)
+  function wk() {
+    var key = state.weekCommencing || nextMonday();
+    if (!state.weeks[key]) state.weeks[key] = { days: freshDays(), checked: {} };
+    return state.weeks[key];
+  }
+
+  function migrateDays(days) {
+    return days.map(function (day) {
+      if (Array.isArray(day)) return { b: [], l: [], d: day }; // pre-slot plans were flat dinner arrays
+      return { b: day.b || [], l: day.l || [], d: day.d || [] };
+    });
+  }
 
   function load() {
     try {
       var raw = localStorage.getItem(STORE_KEY);
       if (!raw) return null;
       var s = JSON.parse(raw);
-      if (!s.days || s.days.length !== 7) return null;
-      // migrate pre-slot plans: a day was a flat array of dinners
-      s.days = s.days.map(function (day) {
-        if (Array.isArray(day)) return { b: [], l: [], d: day };
-        return { b: day.b || [], l: day.l || [], d: day.d || [] };
-      });
-      s.checked = s.checked || {};
+      if (!s.weeks) {
+        // migrate single-plan format: {days, checked} -> weeks keyed by weekCommencing
+        if (!s.days || s.days.length !== 7) return null;
+        s.weeks = {};
+        s.weeks[s.weekCommencing || nextMonday()] = {
+          days: migrateDays(s.days),
+          checked: s.checked || {}
+        };
+        delete s.days;
+        delete s.checked;
+      } else {
+        Object.keys(s.weeks).forEach(function (k) {
+          s.weeks[k].days = migrateDays(s.weeks[k].days || []);
+          if (s.weeks[k].days.length !== 7) s.weeks[k].days = freshDays();
+          s.weeks[k].checked = s.weeks[k].checked || {};
+        });
+      }
+      s.weekCommencing = s.weekCommencing || nextMonday();
       s.swaps = s.swaps || { wholemeal: false, upf: false };
       s.extras = s.extras || [];
+      s.ratings = s.ratings || {};
       return s;
     } catch (e) { return null; }
   }
@@ -95,6 +125,64 @@
     return null;
   }
 
+  /* ---------------- ratings ----------------
+   * Two layers: FAMILY_RATINGS (shared, ships with the site, keyed per person)
+   * and state.ratings (this device's own stars). avgRating blends them all.
+   */
+  var FAMILY = window.FAMILY_RATINGS || {};
+
+  function ratingVoices(recipeId) {
+    var voices = [];
+    var fam = FAMILY[recipeId] || {};
+    Object.keys(fam).forEach(function (person) {
+      voices.push({ who: person, stars: fam[person] });
+    });
+    if (state.ratings[recipeId]) voices.push({ who: 'You', stars: state.ratings[recipeId] });
+    return voices;
+  }
+
+  function avgRating(recipeId) {
+    var voices = ratingVoices(recipeId);
+    if (!voices.length) return null;
+    var sum = voices.reduce(function (s, v) { return s + v.stars; }, 0);
+    return Math.round((sum / voices.length) * 10) / 10;
+  }
+
+  function setRating(recipeId, stars) {
+    if (state.ratings[recipeId] === stars) delete state.ratings[recipeId]; // tap again to clear
+    else state.ratings[recipeId] = stars;
+    save();
+  }
+
+  // interactive 5-star row showing this device's rating
+  function buildStars(recipeId, onChange) {
+    var wrap = document.createElement('div');
+    wrap.className = 'stars';
+    function paint() {
+      var own = state.ratings[recipeId] || 0;
+      wrap.querySelectorAll('button').forEach(function (b, i) {
+        b.classList.toggle('on', i < own);
+      });
+    }
+    for (var i = 1; i <= 5; i++) {
+      (function (n) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = '★';
+        b.title = 'Rate ' + n + '/5' + (n === 1 ? ' (tap your current rating again to clear)' : '');
+        b.addEventListener('click', function (e) {
+          e.stopPropagation();
+          setRating(recipeId, n);
+          paint();
+          if (onChange) onChange();
+        });
+        wrap.appendChild(b);
+      })(i);
+    }
+    paint();
+    return wrap;
+  }
+
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -139,7 +227,7 @@
         label.textContent = slot.label;
         zone.appendChild(label);
 
-        var meals = state.days[dayIdx][slot.key];
+        var meals = wk().days[dayIdx][slot.key];
         meals.forEach(function (meal, mealIdx) {
           var recipe = findRecipe(meal.recipeId);
           if (!recipe) return;
@@ -175,7 +263,7 @@
           rm.innerHTML = '✕';
           rm.title = 'Remove';
           rm.addEventListener('click', function () {
-            state.days[dayIdx][slot.key].splice(mealIdx, 1);
+            wk().days[dayIdx][slot.key].splice(mealIdx, 1);
             save(); renderPlanner(); renderShopping();
           });
           el.appendChild(rm);
@@ -208,7 +296,7 @@
     var recipe = findRecipe(recipeId);
     if (!recipe) return;
     var defaultServings = (recipe.servingsSupported && recipe.servingsSupported[0]) || 2;
-    state.days[dayIdx][slotKey].push({ recipeId: recipeId, servings: defaultServings });
+    wk().days[dayIdx][slotKey].push({ recipeId: recipeId, servings: defaultServings });
     save(); renderPlanner(); renderShopping();
   }
 
@@ -246,6 +334,7 @@
     time: document.getElementById('f-time'),
     calories: document.getElementById('f-calories'),
     health: document.getElementById('f-health'),
+    rating: document.getElementById('f-rating'),
     gf: document.getElementById('f-gf'),
     df: document.getElementById('f-df'),
     veg: document.getElementById('f-veg'),
@@ -275,6 +364,11 @@
     if (f.time.value && r.timeMinutes.max > parseInt(f.time.value, 10)) return false;
     if (f.calories.value && r.nutritionPerServing.calories > parseInt(f.calories.value, 10)) return false;
     if (f.health.value && healthRating(r) > f.health.value) return false; // letters compare alphabetically
+    if (f.rating.value) {
+      var avg = avgRating(r.id);
+      if (f.rating.value === 'unrated') { if (avg !== null) return false; }
+      else if (avg === null || avg < parseFloat(f.rating.value)) return false;
+    }
     if (f.gf.checked && !r.dietary.glutenFree) return false;
     if (f.df.checked && !r.dietary.dairyFree) return false;
     if (f.veg.checked && !r.dietary.vegetarian) return false;
@@ -285,6 +379,13 @@
     var list = RECIPES.filter(matchesFilters);
     var key = filterEls.sort.value;
     list.sort(function (a, b) {
+      if (key === 'rating') {
+        var ra = avgRating(a.id), rb = avgRating(b.id);
+        if (ra === null && rb === null) return a.title.localeCompare(b.title);
+        if (ra === null) return 1;
+        if (rb === null) return -1;
+        return rb - ra;
+      }
       if (key === 'calories') return a.nutritionPerServing.calories - b.nutritionPerServing.calories;
       if (key === 'time') return a.timeMinutes.max - b.timeMinutes.max;
       if (key === 'health') return healthRating(a) < healthRating(b) ? -1 : healthRating(a) > healthRating(b) ? 1 : 0;
@@ -353,6 +454,21 @@
         '<span>🔥 ' + r.nutritionPerServing.calories + ' kcal</span>' +
         '<span>💪 ' + r.nutritionPerServing.proteinG + 'g protein</span>';
       body.appendChild(meta);
+
+      var ratingRow = document.createElement('div');
+      ratingRow.className = 'rating-row';
+      var famAvg = document.createElement('span');
+      famAvg.className = 'fam-avg';
+      function paintAvg() {
+        var avg = avgRating(r.id);
+        var n = ratingVoices(r.id).length;
+        famAvg.textContent = avg === null ? 'not rated yet' : '★ ' + avg + ' (' + n + ')';
+        famAvg.classList.toggle('has-rating', avg !== null);
+      }
+      ratingRow.appendChild(buildStars(r.id, paintAvg));
+      ratingRow.appendChild(famAvg);
+      paintAvg();
+      body.appendChild(ratingRow);
 
       var tags = document.createElement('div');
       tags.className = 'recipe-tags';
@@ -477,6 +593,14 @@
     html += nut('Salt', n.saltG + 'g', trafficLight('saltG', n.saltG));
     html += '</div>';
 
+    var voices = ratingVoices(r.id);
+    html += '<div class="modal-rating"><span class="modal-rating-label">Rate it:</span><span id="modal-stars"></span>';
+    if (voices.length) {
+      html += '<span class="fam-avg has-rating">★ ' + avgRating(r.id) + ' — ' +
+        voices.map(function (v) { return esc(v.who) + ' ★' + v.stars; }).join(' · ') + '</span>';
+    }
+    html += '</div>';
+
     html += '<div class="serving-toggle">';
     (r.servingsSupported || [2]).forEach(function (s) {
       html += '<button data-servings="' + s + '" class="' + (s === servings ? 'active' : '') + '">' + s + ' people</button>';
@@ -509,6 +633,13 @@
         renderModal(r, parseInt(b.dataset.servings, 10));
       });
     });
+    var starMount = modalBody.querySelector('#modal-stars');
+    if (starMount) {
+      starMount.appendChild(buildStars(r.id, function () {
+        renderModal(r, servings);
+        renderRecipes();
+      }));
+    }
   }
 
   function nut(label, value, tl) {
@@ -532,7 +663,7 @@
 
   function plannedMeals() {
     var meals = [];
-    state.days.forEach(function (day, dayIdx) {
+    wk().days.forEach(function (day, dayIdx) {
       SLOTS.forEach(function (slot) {
         day[slot.key].forEach(function (m) {
           var r = findRecipe(m.recipeId);
@@ -599,17 +730,17 @@
         var key = row.name.toLowerCase(); // tick state keys on the ORIGINAL name so toggling swaps keeps ticks
         var swap = S.apply(row.name, state.swaps);
         var item = document.createElement('div');
-        item.className = 'shop-item' + (state.checked[key] ? ' checked' : '') + (swap.swappedFrom ? ' swapped' : '');
+        item.className = 'shop-item' + (wk().checked[key] ? ' checked' : '') + (swap.swappedFrom ? ' swapped' : '');
         var qty = A.formatParts(row.parts, row.unparsed);
         item.innerHTML =
-          '<label><input type="checkbox"' + (state.checked[key] ? ' checked' : '') + '>' +
+          '<label><input type="checkbox"' + (wk().checked[key] ? ' checked' : '') + '>' +
           '<span class="shop-name">' + esc(swap.name) +
           (swap.swappedFrom ? '<span class="swap-note">instead of ' + esc(swap.swappedFrom) + '</span>' : '') +
           '</span>' +
           '<span class="shop-qty">' + esc(qty) + '</span></label>';
         item.querySelector('input').addEventListener('change', function (e) {
-          state.checked[key] = e.target.checked;
-          if (!e.target.checked) delete state.checked[key];
+          wk().checked[key] = e.target.checked;
+          if (!e.target.checked) delete wk().checked[key];
           item.classList.toggle('checked', e.target.checked);
           save();
         });
@@ -627,9 +758,9 @@
         var key = 'extra:' + extra.name.toLowerCase();
         var swap = S.apply(extra.name, state.swaps);
         var item = document.createElement('div');
-        item.className = 'shop-item' + (state.checked[key] ? ' checked' : '') + (swap.swappedFrom ? ' swapped' : '');
+        item.className = 'shop-item' + (wk().checked[key] ? ' checked' : '') + (swap.swappedFrom ? ' swapped' : '');
         item.innerHTML =
-          '<label><input type="checkbox"' + (state.checked[key] ? ' checked' : '') + '>' +
+          '<label><input type="checkbox"' + (wk().checked[key] ? ' checked' : '') + '>' +
           '<span class="shop-name">' + esc(swap.name) +
           (swap.swappedFrom ? '<span class="swap-note">instead of ' + esc(swap.swappedFrom) + '</span>' : '') +
           '</span>' +
@@ -637,14 +768,14 @@
           '</label>' +
           '<button class="extra-remove no-print" title="Remove item">✕</button>';
         item.querySelector('input').addEventListener('change', function (e) {
-          state.checked[key] = e.target.checked;
-          if (!e.target.checked) delete state.checked[key];
+          wk().checked[key] = e.target.checked;
+          if (!e.target.checked) delete wk().checked[key];
           item.classList.toggle('checked', e.target.checked);
           save();
         });
         item.querySelector('.extra-remove').addEventListener('click', function () {
           state.extras.splice(idx, 1);
-          delete state.checked[key];
+          delete wk().checked[key];
           save(); renderShopping();
         });
         xg.appendChild(item);
@@ -678,7 +809,7 @@
       return;
     }
 
-    var days = state.days.map(function (day, i) {
+    var days = wk().days.map(function (day, i) {
       var t = { kcal: 0, protein: 0, carbs: 0, fibre: 0, count: 0, slots: { b: 0, l: 0, d: 0 } };
       SLOTS.forEach(function (slot) {
         day[slot.key].forEach(function (m) {
@@ -799,9 +930,8 @@
   });
 
   document.getElementById('clear-week').addEventListener('click', function () {
-    if (!confirm('Clear all planned meals for this week?')) return;
-    state.days = [[], [], [], [], [], [], []];
-    state.checked = {};
+    if (!confirm('Clear all planned meals and ticks for this week? (Your extras are kept.)')) return;
+    state.weeks[state.weekCommencing] = { days: freshDays(), checked: {} };
     save(); renderPlanner(); renderShopping();
   });
 
@@ -814,6 +944,23 @@
   });
   document.getElementById('print-plan').addEventListener('click', function () { printSection('print-plan'); });
   document.getElementById('print-list').addEventListener('click', function () { printSection('print-list'); });
+
+  document.getElementById('copy-ratings').addEventListener('click', function () {
+    var ids = Object.keys(state.ratings);
+    if (!ids.length) { flashButton('copy-ratings', 'Nothing rated yet'); return; }
+    var lines = ['My meal ratings — ' + new Date().toLocaleDateString('en-GB')];
+    ids.forEach(function (id) {
+      var r = findRecipe(id);
+      if (r) lines.push(id + ' · ' + r.title + ' · ' + state.ratings[id] + '/5');
+    });
+    lines.push('', '(WhatsApp this to Matt to add it to the family ratings)');
+    var text = lines.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        flashButton('copy-ratings', '✓ Copied — WhatsApp it over');
+      }, function () { fallbackCopy(text); });
+    } else { fallbackCopy(text); }
+  });
 
   document.getElementById('copy-list').addEventListener('click', function () {
     var text = shoppingAsText();
@@ -841,7 +988,7 @@
   }
 
   document.getElementById('uncheck-all').addEventListener('click', function () {
-    state.checked = {};
+    wk().checked = {};
     save(); renderShopping();
   });
 
@@ -859,23 +1006,42 @@
     save(); renderShopping();
   });
 
-  /* quick-add extra shop items */
-  var extraName = document.getElementById('extra-name');
-  var extraQty = document.getElementById('extra-qty');
-
-  function addExtra() {
-    var name = extraName.value.trim();
-    if (!name) { extraName.focus(); return; }
-    state.extras.push({ name: name, qty: extraQty.value.trim() });
-    extraName.value = '';
-    extraQty.value = '';
-    extraName.focus();
+  /* quick-add extra shop items (inline form + mobile floating button) */
+  function addExtraFrom(nameEl, qtyEl, feedback) {
+    var name = nameEl.value.trim();
+    if (!name) { nameEl.focus(); return; }
+    state.extras.push({ name: name, qty: qtyEl.value.trim() });
+    nameEl.value = '';
+    qtyEl.value = '';
+    nameEl.focus();
     save(); renderShopping();
+    if (feedback) feedback();
   }
 
-  document.getElementById('extra-add-btn').addEventListener('click', addExtra);
+  var extraName = document.getElementById('extra-name');
+  var extraQty = document.getElementById('extra-qty');
+  document.getElementById('extra-add-btn').addEventListener('click', function () { addExtraFrom(extraName, extraQty); });
   [extraName, extraQty].forEach(function (el) {
-    el.addEventListener('keydown', function (e) { if (e.key === 'Enter') addExtra(); });
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter') addExtraFrom(extraName, extraQty); });
+  });
+
+  var fabPanel = document.getElementById('fab-panel');
+  var fabName = document.getElementById('fab-name');
+  var fabQty = document.getElementById('fab-qty');
+  function fabFeedback() {
+    var b = document.getElementById('fab-add-btn');
+    var old = b.textContent;
+    b.textContent = '✓ Added';
+    setTimeout(function () { b.textContent = old; }, 900);
+  }
+  document.getElementById('fab-add').addEventListener('click', function () {
+    fabPanel.classList.toggle('hidden');
+    if (!fabPanel.classList.contains('hidden')) fabName.focus();
+  });
+  document.getElementById('fab-close').addEventListener('click', function () { fabPanel.classList.add('hidden'); });
+  document.getElementById('fab-add-btn').addEventListener('click', function () { addExtraFrom(fabName, fabQty, fabFeedback); });
+  [fabName, fabQty].forEach(function (el) {
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter') addExtraFrom(fabName, fabQty, fabFeedback); });
   });
 
   /* filters wiring */
@@ -890,6 +1056,7 @@
     filterEls.time.value = '';
     filterEls.calories.value = '';
     filterEls.health.value = '';
+    filterEls.rating.value = '';
     filterEls.gf.checked = filterEls.df.checked = filterEls.veg.checked = false;
     filterEls.sort.value = 'title';
     renderRecipes();

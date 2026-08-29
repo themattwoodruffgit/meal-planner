@@ -98,6 +98,16 @@ branch, root). Personal repo — do NOT push this project to any company remote.
   `nutritionPerServing` across the day's planned meals), targets protein ≥ 90g/day and
   carbs ≤ 200g/day (constants in `js/app.js`), plus distinct-veg count and
   repeated-recipe flags. Prints with the plan.
+- **Per-week plans**: localStorage stores `weeks` keyed by the week-commencing date;
+  changing the date switches to (or creates) that week's own plan and ticks. Extras,
+  swaps and ratings are global. Old single-plan and flat-day formats migrate on load.
+- **Meal ratings**: two layers. Each device stores its own 1–5 stars
+  (`state.ratings`); `data/ratings.js` holds the shared FAMILY_RATINGS
+  (`{recipeId: {person: stars}}`) that ships with the site. The recurring task: when
+  Matt forwards someone's "Copy my ratings" text (from the Recipes section button),
+  merge those numbers into FAMILY_RATINGS under that person's name (overwrite their
+  previous rating for a recipe) and push. The app averages family + own stars, and
+  sorts/filters by them — use ratings to steer which recipes to keep, tweak, or add.
 
 ## Architecture notes
 

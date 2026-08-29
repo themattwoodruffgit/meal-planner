@@ -27,7 +27,7 @@
     <!-- ======================= WEEK PLANNER ======================= -->
     <section id="planner-section" class="section">
       <h2 class="print-only" id="plan-print-title">Meal plan</h2>
-      <p class="hint no-print">Drag a recipe card onto a day, or use a card's <strong>+ Plan</strong> button.</p>
+      <p class="hint no-print">Each week-commencing date keeps its own plan — switch the date above to plan a different week. Drag a recipe onto a day's breakfast/lunch/dinner slot, or use a card's <strong>+ Plan</strong> button.</p>
       <div id="planner" class="planner"></div>
     </section>
 
@@ -35,6 +35,9 @@
     <section id="recipes-section" class="section no-print">
       <div class="section-head">
         <h2>Recipes <span id="recipe-count" class="count-pill"></span></h2>
+        <div class="no-print">
+          <button id="copy-ratings" class="btn btn-quiet">📋 Copy my ratings</button>
+        </div>
       </div>
 
       <div class="filters" id="filters">
@@ -70,11 +73,18 @@
           <option value="C">A – C</option>
           <option value="D">A – D</option>
         </select>
+        <select id="f-rating">
+          <option value="">Any stars</option>
+          <option value="4">★ 4+</option>
+          <option value="3">★ 3+</option>
+          <option value="unrated">Not yet rated</option>
+        </select>
         <label class="chk"><input type="checkbox" id="f-gf"> Gluten-free</label>
         <label class="chk"><input type="checkbox" id="f-df"> Dairy-free</label>
         <label class="chk"><input type="checkbox" id="f-veg"> Vegetarian</label>
         <select id="f-sort">
           <option value="title">Sort: A–Z</option>
+          <option value="rating">Sort: top rated</option>
           <option value="calories">Sort: calories</option>
           <option value="time">Sort: cooking time</option>
           <option value="health">Sort: healthiest</option>
@@ -128,9 +138,19 @@
   <!-- day-picker popover for the "+ Plan" button -->
   <div id="day-popover" class="day-popover hidden"></div>
 
+  <!-- mobile quick-add to shop -->
+  <button id="fab-add" class="fab no-print" aria-label="Add an item to the shopping list">🛒</button>
+  <div id="fab-panel" class="fab-panel no-print hidden">
+    <input type="text" id="fab-name" placeholder="Add to this week's shop…">
+    <input type="text" id="fab-qty" placeholder="qty">
+    <button id="fab-add-btn" class="btn btn-primary">Add</button>
+    <button id="fab-close" class="btn" aria-label="Close">✕</button>
+  </div>
+
   <script src="js/amounts.js"></script>
   <script src="js/swaps.js"></script>
   <script src="data/recipes.js"></script>
+  <script src="data/ratings.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
