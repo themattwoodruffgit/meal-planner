@@ -511,13 +511,23 @@
     popover.innerHTML = '';
     var recipe = findRecipe(recipeId);
     var naturalSlot = recipe ? defaultSlotFor(recipe) : 'd';
+    function plannedTitles(dayIdx, slotKey) {
+      return wk().days[dayIdx][slotKey].map(function (m) {
+        var rec = findRecipe(m.recipeId);
+        return rec ? rec.title : null;
+      }).filter(Boolean);
+    }
+
     DAY_NAMES.forEach(function (name, idx) {
       var row = document.createElement('div');
       row.className = 'popover-row';
 
+      var naturalPlanned = plannedTitles(idx, naturalSlot);
+      var naturalLabel = SLOTS.filter(function (s) { return s.key === naturalSlot; })[0].label.toLowerCase();
       var b = document.createElement('button');
       b.textContent = name;
-      b.title = 'Add to ' + name + ' ' + SLOTS.filter(function (s) { return s.key === naturalSlot; })[0].label.toLowerCase();
+      b.title = 'Add to ' + name + ' ' + naturalLabel +
+        (naturalPlanned.length ? ' (already planned: ' + naturalPlanned.join(', ') + ')' : ' (empty)');
       b.addEventListener('click', function () {
         addToDay(idx, naturalSlot, recipeId);
         closePopover();
@@ -525,10 +535,14 @@
       row.appendChild(b);
 
       SLOTS.forEach(function (slot) {
+        var planned = plannedTitles(idx, slot.key);
         var sb = document.createElement('button');
-        sb.className = 'popover-slot' + (slot.key === naturalSlot ? ' natural' : '');
+        sb.className = 'popover-slot' +
+          (slot.key === naturalSlot ? ' natural' : '') +
+          (planned.length ? ' filled' : '');
         sb.textContent = slot.short;
-        sb.title = name + ' ' + slot.label.toLowerCase();
+        sb.title = name + ' ' + slot.label.toLowerCase() +
+          (planned.length ? ' — already planned: ' + planned.join(', ') : ' — empty');
         sb.addEventListener('click', function () {
           addToDay(idx, slot.key, recipeId);
           closePopover();
@@ -538,6 +552,11 @@
 
       popover.appendChild(row);
     });
+
+    var legend = document.createElement('div');
+    legend.className = 'popover-legend';
+    legend.textContent = 'shaded = already planned';
+    popover.appendChild(legend);
     var rect = anchor.getBoundingClientRect();
     popover.classList.remove('hidden');
     var top = rect.bottom + window.scrollY + 4;
