@@ -106,6 +106,15 @@ main { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem 4rem; }
 }
 .slot .meal { margin-bottom: .3rem; }
 .slot .meal:last-child { margin-bottom: 0; }
+.slot-skip {
+  float: right;
+  border: 0; background: none; cursor: pointer;
+  color: #d5cec3; font-weight: 700; font-size: .8rem; line-height: 1;
+  padding: 0 .2rem;
+}
+.slot-skip:hover { color: var(--accent); }
+.meal.placeholder { background: var(--bg); border: 1px dashed var(--line); }
+.meal.placeholder .meal-title { color: var(--muted); font-style: italic; font-weight: 500; }
 
 .meal {
   background: var(--accent-soft);

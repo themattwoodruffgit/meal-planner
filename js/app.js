@@ -222,13 +222,52 @@
         zone.className = 'slot';
         zone.dataset.slot = slot.key;
 
+        var meals = wk().days[dayIdx][slot.key];
+
         var label = document.createElement('div');
         label.className = 'slot-label';
         label.textContent = slot.label;
+        if (!meals.length) {
+          var skip = document.createElement('button');
+          skip.className = 'slot-skip no-print';
+          skip.textContent = '–';
+          skip.title = 'Mark ' + slot.label.toLowerCase() + ' as not needed (eating out, leftovers…)';
+          skip.addEventListener('click', function () {
+            wk().days[dayIdx][slot.key].push({ placeholder: true });
+            save(); renderPlanner(); renderShopping();
+          });
+          label.appendChild(skip);
+        }
         zone.appendChild(label);
 
-        var meals = wk().days[dayIdx][slot.key];
         meals.forEach(function (meal, mealIdx) {
+          if (meal.placeholder) {
+            var ph = document.createElement('div');
+            ph.className = 'meal placeholder';
+            var phTitle = document.createElement('div');
+            phTitle.className = 'meal-title';
+            phTitle.textContent = meal.note || 'Not needed';
+            phTitle.title = 'Click to add a note (e.g. "Out in London")';
+            phTitle.addEventListener('click', function () {
+              var note = prompt('Note for this slot (e.g. "Out in London"):', meal.note || '');
+              if (note !== null) {
+                meal.note = note.trim();
+                save(); renderPlanner();
+              }
+            });
+            ph.appendChild(phTitle);
+            var phRm = document.createElement('button');
+            phRm.className = 'meal-remove no-print';
+            phRm.innerHTML = '✕';
+            phRm.title = 'Remove';
+            phRm.addEventListener('click', function () {
+              wk().days[dayIdx][slot.key].splice(mealIdx, 1);
+              save(); renderPlanner(); renderShopping();
+            });
+            ph.appendChild(phRm);
+            zone.appendChild(ph);
+            return;
+          }
           var recipe = findRecipe(meal.recipeId);
           if (!recipe) return;
           var el = document.createElement('div');
@@ -513,6 +552,7 @@
     var naturalSlot = recipe ? defaultSlotFor(recipe) : 'd';
     function plannedTitles(dayIdx, slotKey) {
       return wk().days[dayIdx][slotKey].map(function (m) {
+        if (m.placeholder) return m.note || 'not needed';
         var rec = findRecipe(m.recipeId);
         return rec ? rec.title : null;
       }).filter(Boolean);
@@ -829,9 +869,10 @@
     }
 
     var days = wk().days.map(function (day, i) {
-      var t = { kcal: 0, protein: 0, carbs: 0, fibre: 0, count: 0, slots: { b: 0, l: 0, d: 0 } };
+      var t = { kcal: 0, protein: 0, carbs: 0, fibre: 0, count: 0, slots: { b: 0, l: 0, d: 0 }, skips: { b: 0, l: 0, d: 0 } };
       SLOTS.forEach(function (slot) {
         day[slot.key].forEach(function (m) {
+          if (m.placeholder) { t.skips[slot.key]++; return; } // deliberately not needed (eating out etc.)
           var r = findRecipe(m.recipeId);
           if (!r || mealTypeOf(r) === 'bake') { if (r) t.slots[slot.key]++; return; } // a loaf isn't a meal
           var n = r.nutritionPerServing;
@@ -839,6 +880,7 @@
           t.count++; t.slots[slot.key]++;
         });
       });
+      t.hasAny = t.count > 0 || (t.slots.b + t.slots.l + t.slots.d + t.skips.b + t.skips.l + t.skips.d) > 0;
       return t;
     });
 
@@ -846,19 +888,23 @@
     DAY_NAMES.forEach(function (d) { html += '<th>' + d.slice(0, 3) + '</th>'; });
     html += '</tr>';
 
-    function row(label, fmt, cls) {
+    function row(label, fmt, cls, showWhenAny) {
       html += '<tr><td>' + label + '</td>';
       days.forEach(function (t) {
-        var out = t.count ? fmt(t) : '–';
+        var show = showWhenAny ? t.hasAny : t.count;
+        var out = show ? fmt(t) : '–';
         var c = t.count && cls ? cls(t) : '';
         html += '<td class="' + c + '">' + out + '</td>';
       });
       html += '</tr>';
     }
 
+    // ✓ planned · – deliberately skipped · · unplanned
     row('Meals', function (t) {
-      return ['b', 'l', 'd'].map(function (k) { return t.slots[k] ? '✓' : '·'; }).join(' ');
-    });
+      return ['b', 'l', 'd'].map(function (k) {
+        return t.slots[k] ? '✓' : (t.skips[k] ? '–' : '·');
+      }).join(' ');
+    }, null, true);
     row('kcal', function (t) { return Math.round(t.kcal); });
     row('Protein', function (t) { return Math.round(t.protein) + 'g'; },
       function (t) { return t.protein >= TARGET_PROTEIN ? 'good' : 'warn'; });

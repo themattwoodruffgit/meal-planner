@@ -8780,6 +8780,44 @@ window.RECIPES = [
     ]
   },
   {
+    id: "X-008",
+    title: "Thai Green Chicken Curry",
+    source: "Family staple",
+    cuisine: "Thai",
+    tags: ["Family staple", "Gluten-free", "Dairy-free", "2 of your 5-a-day"],
+    dietary: { glutenFree: true, dairyFree: true, vegetarian: false, vegan: false },
+    timeMinutes: { min: 35, max: 40 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 700, fatG: 34, satFatG: 24, carbsG: 62,
+      sugarG: 8, fibreG: 5, proteinG: 40, saltG: 1.8
+    },
+    allergens: ["fish (fish sauce)", "crustacean (curry paste – check label)"],
+    staples: ["vegetable oil", "salt", "sugar", "water"],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "chicken breast",              category: "meat & fish", amounts: { "2": "300g",   "3": "450g",    "4": "600g" } },
+      { name: "Thai green curry paste",      category: "pantry",      amounts: { "2": "45g",    "3": "70g",     "4": "90g" } },
+      { name: "coconut milk (400ml tin)",    category: "pantry",      amounts: { "2": "1",      "3": "1½",      "4": "2" } },
+      { name: "fine green beans",            category: "produce",     amounts: { "2": "150g",   "3": "225g",    "4": "300g" } },
+      { name: "red pepper",                  category: "produce",     amounts: { "2": "1",      "3": "2",       "4": "2" } },
+      { name: "basil",                       category: "produce",     amounts: { "2": "15g",    "3": "20g",     "4": "30g" } },
+      { name: "lime",                        category: "produce",     amounts: { "2": "1",      "3": "1",       "4": "2" } },
+      { name: "fish sauce",                  category: "pantry",      amounts: { "2": "1 tbsp", "3": "1.5 tbsp", "4": "2 tbsp" } },
+      { name: "white basmati rice",          category: "pantry",      amounts: { "2": "150g",   "3": "225g",    "4": "300g" } }
+    ],
+    steps: [
+      "Add your basmati rice and 300ml [450ml] [600ml] cold water to a pot with a lid and bring to the boil over a high heat. Once boiling, reduce the heat to very low and cook, covered, for 10-12 min or until all the water has absorbed and the rice is cooked. Remove from the heat and keep covered until serving.",
+      "Meanwhile, cut your chicken breast[s] into bite-sized pieces. Trim your green beans and cut in half. Deseed your red pepper[s] and cut into strips.",
+      "Heat a large, wide-based pan (or wok) with a drizzle of vegetable oil over a medium-high heat. Once hot, add your Thai green curry paste and cook for 1 min, stirring, until it smells amazing. Tip: Frying the paste first wakes it up – don't skip it!",
+      "Add the chicken pieces and stir to coat in the paste, cooking for 2-3 min until sealed all over.",
+      "Pour in your coconut milk with a pinch of sugar, stir well and bring to a gentle simmer. Cook for 8-10 min, then add the green beans and pepper strips and cook for 4-5 min further, or until the veg is tender-crisp and the chicken is cooked through (no pink meat!).",
+      "Remove from the heat. Season with your fish sauce and the juice of half your lime[s] – taste and balance: it should be savoury, a little sweet, with a citrus edge. Tear in most of your basil leaves and stir through – this is your Thai green chicken curry.",
+      "Serve the Thai green chicken curry over the basmati rice, topped with the remaining basil and the rest of the lime, cut into wedges. Enjoy!"
+    ]
+  },
+  {
     id: "X-101",
     title: "Granola, Greek Yoghurt & Berry Bowl",
     source: "Family staple",
