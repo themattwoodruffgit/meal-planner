@@ -70,6 +70,11 @@ For a big batch (e.g. a WhatsApp export dump in ~/Downloads), don't transcribe s
    yourself), then rerun with `--write` to append to `data/recipes.js`.
 5. `node tests/amounts.test.js`, sanity-check in the browser, commit and push —
    the site is GitHub Pages (repo `themattwoodruffgit/meal-planner`), so push = deploy.
+6. Dish photos: fan out agents to produce crop specs for each FRONT photo
+   (rotation + bbox of the dish photograph, JSON `crops-*.json` — see the spec format
+   in `tools/crop-dish-photos.py`), then run
+   `python3 tools/crop-dish-photos.py <specs-dir>` to write `images/{ref}.jpg`
+   (the app picks these up automatically; missing photo = cuisine emoji fallback).
 
 ## Deployment
 
