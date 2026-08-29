@@ -55,6 +55,27 @@ comment of that file. Rules:
 9. After adding, run the tests and sanity-check in the browser that the new card renders,
    its modal shows all serving counts, and it aggregates into the shopping list.
 
+## Batch import (a folder of card photos)
+
+For a big batch (e.g. a WhatsApp export dump in ~/Downloads), don't transcribe serially:
+
+1. Build a manifest of the image paths and split it into chunks of ~10.
+2. Fan out one transcription subagent per chunk. Each agent follows
+   `tools/transcription-instructions.md` and writes `chunk-XX.json`
+   (entries keyed by the card ref, `side: front|back`) into one shared folder.
+3. Run `node tools/merge-cards.js <that-folder>` for a dry-run report. It pairs fronts
+   with backs by card ref, pairs ref-less fronts by title-vs-steps matching, dedupes
+   against the library by id AND title, and validates every amount with `js/amounts.js`.
+4. Fix anything it flags (usually a cropped/ambiguous card ref — read that photo
+   yourself), then rerun with `--write` to append to `data/recipes.js`.
+5. `node tests/amounts.test.js`, sanity-check in the browser, commit and push —
+   the site is GitHub Pages (repo `themattwoodruffgit/meal-planner`), so push = deploy.
+
+## Deployment
+
+Live at https://themattwoodruffgit.github.io/meal-planner/ (GitHub Pages, `main`
+branch, root). Personal repo — do NOT push this project to any company remote.
+
 ## Architecture notes
 
 - `js/amounts.js` — amount parsing/aggregation. UMD-style: used by the browser and by the

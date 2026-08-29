@@ -259,7 +259,7 @@
     Indian: '🍛', Italian: '🍝', Mexican: '🌮', British: '🥧', Asian: '🥢',
     Chinese: '🥡', Thai: '🍜', Japanese: '🍣', Greek: '🥙', Spanish: '🥘',
     French: '🥖', American: '🍔', 'Middle Eastern': '🧆', Mediterranean: '🫒',
-    Hungarian: '🍲', 'Sri Lankan': '🥥'
+    Hungarian: '🍲', 'Sri Lankan': '🥥', Portuguese: '🍗', Scandinavian: '🥣', African: '🍚'
   };
 
   function renderRecipes() {
