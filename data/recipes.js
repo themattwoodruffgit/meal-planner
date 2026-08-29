@@ -8785,7 +8785,7 @@ window.RECIPES = [
     source: "Family staple",
     mealType: "breakfast",
     cuisine: "British",
-    tags: ["Family staple", "1 of your 5-a-day"],
+    tags: ["Family staple", "Zero prep", "1 of your 5-a-day"],
     dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
     timeMinutes: { min: 5, max: 5 },
     fiveADay: 1,
@@ -8811,31 +8811,31 @@ window.RECIPES = [
   },
   {
     id: "X-102",
-    title: "Shredded Wheat Minis With Banana & Blueberries",
+    title: "Bite-Size Shredded Wheat With Banana & Blueberries",
     source: "Family staple",
     mealType: "breakfast",
     cuisine: "British",
-    tags: ["Family staple", "1 of your 5-a-day"],
+    tags: ["Family staple", "Zero prep", "1 of your 5-a-day"],
     dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
     timeMinutes: { min: 5, max: 5 },
     fiveADay: 1,
     nutritionPerServing: {
-      calories: 350, fatG: 6, satFatG: 3, carbsG: 60,
-      sugarG: 20, fibreG: 7, proteinG: 14, saltG: 0.2
+      calories: 340, fatG: 5, satFatG: 2, carbsG: 60,
+      sugarG: 16, fibreG: 8, proteinG: 14, saltG: 0.1
     },
     allergens: ["gluten (wheat)", "milk"],
     staples: [],
     servingsSupported: [2, 3, 4],
     image: null,
     ingredients: [
-      { name: "shredded wheat minis", category: "pantry",  amounts: { "2": "90g",   "3": "135g",  "4": "180g" } },
-      { name: "semi-skimmed milk",    category: "dairy",   amounts: { "2": "400ml", "3": "600ml", "4": "800ml" } },
-      { name: "banana",               category: "produce", amounts: { "2": "1",     "3": "2",     "4": "2" } },
-      { name: "blueberries",          category: "produce", amounts: { "2": "80g",   "3": "120g",  "4": "160g" } },
-      { name: "ground cinnamon",      category: "herbs & spices", amounts: { "2": "0.5 tsp", "3": "0.75 tsp", "4": "1 tsp" } }
+      { name: "bite-size shredded wheat", category: "pantry",  amounts: { "2": "90g",   "3": "135g",  "4": "180g" } },
+      { name: "semi-skimmed milk",        category: "dairy",   amounts: { "2": "400ml", "3": "600ml", "4": "800ml" } },
+      { name: "banana",                   category: "produce", amounts: { "2": "1",     "3": "2",     "4": "2" } },
+      { name: "blueberries",              category: "produce", amounts: { "2": "80g",   "3": "120g",  "4": "160g" } },
+      { name: "ground cinnamon",          category: "herbs & spices", amounts: { "2": "0.5 tsp", "3": "0.75 tsp", "4": "1 tsp" } }
     ],
     steps: [
-      "Divide your shredded wheat minis between bowls.",
+      "Divide your bite-size shredded wheat between bowls (100% wholegrain, no added fat or sugar – the toppings do the sweetening).",
       "Slice your banana[s] and arrange over the top with your blueberries.",
       "Pour over your milk and finish with a dusting of ground cinnamon. Enjoy!"
     ]
@@ -8909,7 +8909,7 @@ window.RECIPES = [
     source: "Family staple",
     mealType: "breakfast",
     cuisine: "British",
-    tags: ["Family staple", "Gluten-free", "1 of your 5-a-day"],
+    tags: ["Family staple", "Zero prep", "Gluten-free", "1 of your 5-a-day"],
     dietary: { glutenFree: true, dairyFree: false, vegetarian: true, vegan: false },
     timeMinutes: { min: 5, max: 5 },
     fiveADay: 1,
@@ -8931,6 +8931,96 @@ window.RECIPES = [
       "Divide your Greek yoghurt between bowls or lidded pots (this one travels well!).",
       "Roughly chop your mixed nuts and scatter over with your pumpkin seeds.",
       "Top with your mixed berries and the smallest drizzle of honey. Enjoy!"
+    ]
+  },
+  {
+    id: "X-106",
+    title: "Radhi's Granola, Fruit & Yoghurt Bowl",
+    source: "Family staple",
+    mealType: "breakfast",
+    cuisine: "British",
+    tags: ["Family staple", "Zero prep", "2 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 5, max: 5 },
+    fiveADay: 2,
+    nutritionPerServing: {
+      calories: 430, fatG: 12, satFatG: 4, carbsG: 62,
+      sugarG: 24, fibreG: 7, proteinG: 16, saltG: 0.2
+    },
+    allergens: ["gluten (granola – check label)", "milk (yoghurt)", "nuts (granola – check label)"],
+    staples: [],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "natural yoghurt", category: "dairy",   amounts: { "2": "300g", "3": "450g", "4": "600g" } },
+      { name: "granola",         category: "pantry",  amounts: { "2": "100g", "3": "150g", "4": "200g" } },
+      { name: "banana",          category: "produce", amounts: { "2": "1",    "3": "2",    "4": "2" } },
+      { name: "mixed berries",   category: "produce", amounts: { "2": "120g", "3": "180g", "4": "240g" } }
+    ],
+    steps: [
+      "Divide your natural yoghurt between bowls.",
+      "Slice your banana[s] and arrange over the yoghurt with your mixed berries.",
+      "Top with your granola so it stays crunchy. Enjoy! Tip: With the shopping list's UPF swap on, the granola line suggests a low-sugar, short-ingredient (or homemade) version."
+    ]
+  },
+  {
+    id: "X-107",
+    title: "Bite-Size Shredded Wheat With Strawberries & Almonds",
+    source: "Family staple",
+    mealType: "breakfast",
+    cuisine: "British",
+    tags: ["Family staple", "Zero prep", "1 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 5, max: 5 },
+    fiveADay: 1,
+    nutritionPerServing: {
+      calories: 380, fatG: 9, satFatG: 2, carbsG: 58,
+      sugarG: 14, fibreG: 8, proteinG: 15, saltG: 0.1
+    },
+    allergens: ["gluten (wheat)", "milk", "nuts (almonds)"],
+    staples: [],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "bite-size shredded wheat", category: "pantry",  amounts: { "2": "90g",   "3": "135g",  "4": "180g" } },
+      { name: "semi-skimmed milk",        category: "dairy",   amounts: { "2": "400ml", "3": "600ml", "4": "800ml" } },
+      { name: "strawberries",             category: "produce", amounts: { "2": "150g",  "3": "225g",  "4": "300g" } },
+      { name: "flaked almonds",           category: "pantry",  amounts: { "2": "20g",   "3": "30g",   "4": "40g" } }
+    ],
+    steps: [
+      "Divide your bite-size shredded wheat between bowls.",
+      "Hull and halve your strawberries and scatter over with your flaked almonds.",
+      "Pour over your milk. Done – wholegrains, fruit and a little crunch, zero prep. Enjoy!"
+    ]
+  },
+  {
+    id: "X-108",
+    title: "Banana & Peanut Butter Yoghurt Pot",
+    source: "Family staple",
+    mealType: "breakfast",
+    cuisine: "British",
+    tags: ["Family staple", "Zero prep", "1 of your 5-a-day"],
+    dietary: { glutenFree: false, dairyFree: false, vegetarian: true, vegan: false },
+    timeMinutes: { min: 5, max: 5 },
+    fiveADay: 1,
+    nutritionPerServing: {
+      calories: 420, fatG: 16, satFatG: 4, carbsG: 46,
+      sugarG: 20, fibreG: 5, proteinG: 21, saltG: 0.2
+    },
+    allergens: ["milk (yoghurt)", "peanut", "gluten (oats – check label)"],
+    staples: [],
+    servingsSupported: [2, 3, 4],
+    image: null,
+    ingredients: [
+      { name: "natural yoghurt",       category: "dairy",   amounts: { "2": "300g", "3": "450g", "4": "600g" } },
+      { name: "banana",                category: "produce", amounts: { "2": "1",    "3": "2",    "4": "2" } },
+      { name: "smooth peanut butter",  category: "pantry",  amounts: { "2": "30g",  "3": "45g",  "4": "60g" } },
+      { name: "porridge oats",         category: "pantry",  amounts: { "2": "30g",  "3": "45g",  "4": "60g" } }
+    ],
+    steps: [
+      "Divide your natural yoghurt between bowls or lidded pots.",
+      "Slice your banana[s] over the top.",
+      "Drizzle (or dollop!) over your peanut butter and finish with a sprinkle of raw porridge oats for crunch. Travels well too. Enjoy!"
     ]
   },
   {

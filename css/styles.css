@@ -274,6 +274,21 @@ main { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem 4rem; }
 }
 .swap-controls > span { font-weight: 600; color: var(--green); }
 .shop-item.swapped .shop-name { color: var(--green); font-weight: 600; }
+
+.extra-add { display: flex; gap: .5rem; margin-bottom: .7rem; flex-wrap: wrap; }
+.extra-add input {
+  font: inherit; font-size: .85rem;
+  padding: .38rem .55rem;
+  border: 1px solid var(--line); border-radius: 8px;
+  background: var(--card);
+}
+.extra-add input#extra-name { flex: 1 1 220px; }
+.extra-add input#extra-qty { width: 7.5rem; }
+.extra-remove {
+  border: 0; background: none; cursor: pointer;
+  color: var(--muted); font-size: .75rem; padding: 0 .2rem;
+}
+.extra-remove:hover { color: var(--red); }
 .swap-note {
   display: block;
   font-size: .7rem; font-weight: 400; font-style: italic;

@@ -23,7 +23,8 @@
     weekCommencing: nextMonday(),
     days: [emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay(), emptyDay()],
     checked: {},                          // shopping ticks, keyed by ingredient name
-    swaps: { wholemeal: false, upf: false }
+    swaps: { wholemeal: false, upf: false },
+    extras: []                            // user-added shop items: {name, qty}
   };
 
   function load() {
@@ -39,6 +40,7 @@
       });
       s.checked = s.checked || {};
       s.swaps = s.swaps || { wholemeal: false, upf: false };
+      s.extras = s.extras || [];
       return s;
     } catch (e) { return null; }
   }
@@ -558,19 +560,24 @@
     var meals = plannedMeals();
     updatePrintTitle();
 
-    if (!meals.length) {
+    if (!meals.length && !state.extras.length) {
       metaEl.textContent = '';
-      shoppingEl.innerHTML = '<div class="shopping-empty">Plan some meals above and the combined shopping list will appear here.</div>';
+      shoppingEl.innerHTML = '<div class="shopping-empty">Plan some meals above — or add your own items — and the shopping list will appear here.</div>';
       shoppingEl.classList.remove('shopping-list');
       staplesEl.innerHTML = '';
+      renderAnalysis(meals);
       return;
     }
     shoppingEl.classList.add('shopping-list');
 
-    var totalPlates = meals.reduce(function (sum, m) { return sum + m.servings; }, 0);
-    metaEl.textContent = metaEl.dataset.week + ' · ' + meals.length + ' meal' + (meals.length === 1 ? '' : 's') +
-      ' · ' + totalPlates + ' plates: ' +
-      meals.map(function (m) { return m.recipe.title + ' (' + m.servings + ')'; }).join(' · ');
+    if (meals.length) {
+      var totalPlates = meals.reduce(function (sum, m) { return sum + m.servings; }, 0);
+      metaEl.textContent = metaEl.dataset.week + ' · ' + meals.length + ' meal' + (meals.length === 1 ? '' : 's') +
+        ' · ' + totalPlates + ' plates: ' +
+        meals.map(function (m) { return m.recipe.title + ' (' + m.servings + ')'; }).join(' · ');
+    } else {
+      metaEl.textContent = metaEl.dataset.week + ' · no meals planned yet — extras only';
+    }
 
     var rows = buildShoppingItems(meals);
 
@@ -610,6 +617,40 @@
       });
       shoppingEl.appendChild(g);
     });
+
+    // user-added extras (store cupboard, drinks, household bits)
+    if (state.extras.length) {
+      var xg = document.createElement('div');
+      xg.className = 'shop-group';
+      xg.innerHTML = '<h3>your extras</h3>';
+      state.extras.forEach(function (extra, idx) {
+        var key = 'extra:' + extra.name.toLowerCase();
+        var swap = S.apply(extra.name, state.swaps);
+        var item = document.createElement('div');
+        item.className = 'shop-item' + (state.checked[key] ? ' checked' : '') + (swap.swappedFrom ? ' swapped' : '');
+        item.innerHTML =
+          '<label><input type="checkbox"' + (state.checked[key] ? ' checked' : '') + '>' +
+          '<span class="shop-name">' + esc(swap.name) +
+          (swap.swappedFrom ? '<span class="swap-note">instead of ' + esc(swap.swappedFrom) + '</span>' : '') +
+          '</span>' +
+          (extra.qty ? '<span class="shop-qty">' + esc(extra.qty) + '</span>' : '') +
+          '</label>' +
+          '<button class="extra-remove no-print" title="Remove item">✕</button>';
+        item.querySelector('input').addEventListener('change', function (e) {
+          state.checked[key] = e.target.checked;
+          if (!e.target.checked) delete state.checked[key];
+          item.classList.toggle('checked', e.target.checked);
+          save();
+        });
+        item.querySelector('.extra-remove').addEventListener('click', function () {
+          state.extras.splice(idx, 1);
+          delete state.checked[key];
+          save(); renderShopping();
+        });
+        xg.appendChild(item);
+      });
+      shoppingEl.appendChild(xg);
+    }
 
     // pantry staples across all planned recipes
     var staples = {};
@@ -732,6 +773,15 @@
       });
       lines.push('');
     });
+    if (state.extras.length) {
+      lines.push('YOUR EXTRAS');
+      state.extras.forEach(function (extra) {
+        var swap = S.apply(extra.name, state.swaps);
+        lines.push('  [ ] ' + swap.name + (extra.qty ? ' — ' + extra.qty : '') +
+          (swap.swappedFrom ? ' (instead of ' + swap.swappedFrom + ')' : ''));
+      });
+      lines.push('');
+    }
     var staples = {};
     meals.forEach(function (m) { (m.recipe.staples || []).forEach(function (s) { staples[s] = true; }); });
     var st = Object.keys(staples).sort();
@@ -807,6 +857,25 @@
   swapUpf.addEventListener('change', function () {
     state.swaps.upf = swapUpf.checked;
     save(); renderShopping();
+  });
+
+  /* quick-add extra shop items */
+  var extraName = document.getElementById('extra-name');
+  var extraQty = document.getElementById('extra-qty');
+
+  function addExtra() {
+    var name = extraName.value.trim();
+    if (!name) { extraName.focus(); return; }
+    state.extras.push({ name: name, qty: extraQty.value.trim() });
+    extraName.value = '';
+    extraQty.value = '';
+    extraName.focus();
+    save(); renderShopping();
+  }
+
+  document.getElementById('extra-add-btn').addEventListener('click', addExtra);
+  [extraName, extraQty].forEach(function (el) {
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter') addExtra(); });
   });
 
   /* filters wiring */
